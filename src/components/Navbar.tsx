@@ -4,7 +4,6 @@ import dynamic from "next/dynamic";
 import NetworkSwitcher from "../components/NetworkSwitcher";
 import Image from "next/image";
 import ZKore from "../../public/ZKoreIcon.svg";
-import { TruckIcon } from "@heroicons/react/outline";
 
 const WalletMultiButtonDynamic = dynamic(
   async () =>
