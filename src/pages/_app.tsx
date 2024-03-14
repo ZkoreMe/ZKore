@@ -5,6 +5,8 @@ import { ContextProvider } from "../contexts/ContextProvider";
 import Navbar from "../components/Navbar";
 require("@solana/wallet-adapter-react-ui/styles.css");
 require("../styles/globals.css");
+import 'remixicon/fonts/remixicon.css'
+
 
 const App: FC<AppProps> = ({ Component, pageProps }) => {
   return (
