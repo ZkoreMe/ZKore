@@ -54,7 +54,7 @@ const Navbar: FC = () => {
             />
           </label>
           <NetworkSwitcher />
-          <WalletMultiButtonDynamic className="flex items-center" />
+          <WalletMultiButtonDynamic className="flex items-center text-[#000000]" />
         </div>
       )}
     </div>
