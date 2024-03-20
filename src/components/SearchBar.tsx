@@ -24,13 +24,14 @@ const SearchBar: FC = () => {
           Search
         </button>
       </div>
-      <div>
+      <div className="grid grid-cols-3 gap-[20px]">
         {categoryData.map((category) => (
-          <div key={category.id} className="w-[100px] h-[71px} flex flex-col items-center gap-[12px] bg-[#E8E8E8] rounded-[8px]">
-            <h1>
-                {category.category}
-            </h1>
-            <i className={`${category.icon}`}></i>
+          <div
+            key={category.id}
+            className="w-[100px] h-[71px} flex flex-col items-center gap-[12px] bg-[#E8E8E8] rounded-[8px] p-[12px] text-[#777E90]"
+          >
+            <i className={`${category.icon}`} style={{ fontSize: "18px" }}></i>
+            <h1 className="text-[12px] font-medium">{category.category}</h1>
           </div>
         ))}
       </div>

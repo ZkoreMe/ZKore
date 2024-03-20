@@ -9,27 +9,27 @@ const categoryData: Category[] = [
   {
     id: 2,
     category: "Phone",
-    icon: "ri-computer-line",
+    icon: "ri-smartphone-line",
   },
   {
     id: 3,
     category: "Earphones",
-    icon: "ri-computer-line",
+    icon: "ri-headphone-line",
   },
   {
     id: 4,
     category: "Books",
-    icon: "ri-computer-line",
+    icon: "ri-book-line",
   },
   {
     id: 5,
     category: "Skin Care",
-    icon: "ri-computer-line",
+    icon: "ri-bear-smile-line",
   },
   {
     id: 6,
     category: "Clothes",
-    icon: "ri-computer-line",
+    icon: "ri-t-shirt-line",
   },
   // ... otros productos ...
 ];
