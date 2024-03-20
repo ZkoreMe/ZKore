@@ -3,6 +3,7 @@ import { FC, useEffect, useState } from "react";
 import SearchBar from "components/SearchBar";
 import activityData from "data/activityData";
 import Image from "next/image";
+import Link from "next/link";
 
 export const Search: FC = ({}) => {
   const renderStars = (rate: number) => {
@@ -54,12 +55,14 @@ export const Search: FC = ({}) => {
             <div className="mt-[16px] flex justify-center gap-[12px] items-center">
               <span className="flex gap-1 text-[12px] items-center font-medium text-[#65676B]">
                 <i className="ri-ghost-fill" style={{ fontSize: "18px" }}></i>
-                {activity.id}
+                {activity.user}
                 <p>wrote review on</p>
               </span>
-              <button className="w-[100px] h-[33px] border border-[#047BE9] rounded-[8px] text-[#047BE9] text-[12px] font-medium">
-                Explore user
-              </button>
+              <Link href={`/exploreUser/${activity.user}`}>
+                <button className="w-[100px] h-[33px] border border-[#047BE9] rounded-[8px] text-[#047BE9] text-[12px] font-medium">
+                  Explore user
+                </button>
+              </Link>
             </div>
             <div className="w-[308px] h-[329px] bg-[#E8E8E8] flex flex-col gap-[12px] p-[16px]">
               <Image src={activity.img} alt="" width={276} height={105} />

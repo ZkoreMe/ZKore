@@ -6,7 +6,7 @@ const Searchs: NextPage = (props) => {
   return (
     <div>
       <Head>
-        <title>Mine</title>
+        <title>Search</title>
         <meta name="description" content="Basic Functionality" />
       </Head>
       <Search />

@@ -2,7 +2,8 @@ import { Activity } from "types/activityTypes";
 
 const activityData: Activity[] = [
   {
-    id: "2izS...nqMH",
+    id: 1,
+    user: "2izS...nqMH",
     img: "/images/apple.png",
     tittle: "Macbook Air 13 M3",
     rate: 4.5,
@@ -11,7 +12,8 @@ const activityData: Activity[] = [
     dislike: 2,
   },
   {
-    id: "3izS...nqMH",
+    id: 2,
+    user: "3izS...nqMH",
     img: "/images/apple.png",
     tittle: "Macbook Air 13 M3",
     rate: 4.5,
@@ -20,7 +22,8 @@ const activityData: Activity[] = [
     dislike: 2,
   },
   {
-    id: "4izS...nqMH",
+    id: 3,
+    user: "4izS...nqMH",
     img: "/images/apple.png",
     tittle: "Macbook Air 13 M3",
     rate: 4.5,
