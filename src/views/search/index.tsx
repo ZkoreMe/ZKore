@@ -65,14 +65,16 @@ export const Search: FC = ({}) => {
               </Link>
             </div>
             <div className="w-[308px] h-[329px] bg-[#E8E8E8] flex flex-col gap-[12px] p-[16px]">
-              <Image src={activity.img} alt="" width={276} height={105} />
-              <h1 className="font-semibold text-[16px] text-[#010100]">
-                {activity.tittle}
-              </h1>
-              <div>{renderStars(activity.rate)}</div>
-              <p className="text-[12px] font-normal text-[#010100]">
-                {activity.description}
-              </p>
+              <Link href={`reviewDetail/${activity.id}`}>
+                <Image src={activity.img} alt="" width={276} height={105} />
+                <h1 className="font-semibold text-[16px] text-[#010100]">
+                  {activity.tittle}
+                </h1>
+                <div>{renderStars(activity.rate)}</div>
+                <p className="text-[12px] font-normal text-[#010100]">
+                  {activity.description}
+                </p>
+              </Link>
               <div className="flex justify-between">
                 <div className="flex gap-[8px] text-[#65676B] items-center">
                   <i
