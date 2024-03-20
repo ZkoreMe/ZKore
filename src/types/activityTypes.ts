@@ -1,5 +1,6 @@
 export interface Activity {
-    id: string;
+    id: number;
+    user: string
     img: string;
     tittle: string;
     rate: number;

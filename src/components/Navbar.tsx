@@ -15,7 +15,6 @@ const WalletMultiButtonDynamic = dynamic(
 const Navbar: FC = () => {
   const { autoConnect, setAutoConnect } = useAutoConnect();
   const [toggle, setToggle] = useState<boolean>(false);
-  6556655;
 
   const toggleMenu = () => {
     setToggle(!toggle);
@@ -23,9 +22,7 @@ const Navbar: FC = () => {
 
   return (
     <div>
-      {/*<div className="flex gap-10 flex-col md:flex-row md:justify-evenly justify-evenly items-center mt-5">
-      
-    </div> */}
+
       <div className=" flex relative justify-between mr-[25px] ml-[25px] mt-[36px]">
         <Link href={"/"}>
           <div className=" flex flex-col gap-[8px]">

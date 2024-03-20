@@ -12,7 +12,7 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
   return (
     <>
       <Head>
-        <title>Mine</title>
+        <title>Zkore</title>
       </Head>
 
       <ContextProvider>
