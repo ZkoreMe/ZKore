@@ -28,7 +28,18 @@ export const HomeView: FC = ({}) => {
 
   return (
     <div className="md:hero mx-auto p-4">
-      <div className="flex flex-col mt-2">
+      <div className="flex flex-col items-center justify-center mt-[50px] gap-10">
+        <Link href={"/search"}>
+          <div className="relative w-[340px] h-[44px] rounded-[8px] bg-[#047BE9] flex items-center justify-center gap-[12px]">
+            <i
+              className="ri-search-2-line text-[#FFFFFF]"
+              style={{ fontSize: "24px" }}
+            ></i>
+            <button className="bg-transparent text-[14px] font-medium text-[#FFFFFF] focus:outline-none">
+              Search
+            </button>
+          </div>
+        </Link>
         <h4 className="md:w-full text-2xl text-slate-300 my-2">
           {wallet && (
             <div className="flex flex-row justify-center">
