@@ -1,49 +1,18 @@
-use borsh::{BorshDeserialize, BorshSerialize};
-use solana_program::{
-    account_info::{next_account_info, AccountInfo},
-    entrypoint,
-    entrypoint::ProgramResult,
-    msg,
-    program_error::ProgramError,
-    pubkey::Pubkey,
-};
+pub mod marketplace;
+pub mod account;
 
-/// Define the type of state stored in accounts
-#[derive(BorshSerialize, BorshDeserialize, Debug)]
-pub struct GreetingAccount {
-    /// number of greetings
-    pub counter: u32,
-}
+pub use account::*;
 
-// Declare and export the program's entrypoint
-entrypoint!(process_instruction);
+use anchor_lang::prelude::*;
 
-// Program entrypoint's implementation
-pub fn process_instruction(
-    program_id: &Pubkey, // Public key of the account the hello world program was loaded into
-    accounts: &[AccountInfo], // The account to say hello to
-    _instruction_data: &[u8], // Ignored, all helloworld instructions are hellos
-) -> ProgramResult {
-    msg!("Hello World Rust program entrypoint");
-
-    // Iterating accounts is safer than indexing
-    let accounts_iter = &mut accounts.iter();
-
-    // Get the account to say hello to
-    let account = next_account_info(accounts_iter)?;
-
-    // The account must be owned by the program in order to modify its data
-    if account.owner != program_id {
-        msg!("Greeted account does not have the correct program id");
-        return Err(ProgramError::IncorrectProgramId);
-    }
-
-    // Increment and store the number of times the account has been greeted
-    let mut greeting_account = GreetingAccount::try_from_slice(&account.data.borrow())?;
-    greeting_account.counter += 1;
-    greeting_account.serialize(&mut *account.data.borrow_mut())?;
-
-    msg!("Greeted {} time(s)!", greeting_account.counter);
-
+/// Entrypoint for initializing the program.
+pub fn initialize(program_id: &Pubkey) -> ProgramResult {
+    let accounts = &[AccountMeta::new(*program_id, false)];
+    let ix = anchor_lang::solana_program::instruction::Instruction {
+        program_id: *program_id,
+        accounts: vec![],
+        data: vec![],
+    };
+    anchor_lang::solana_program::program::invoke(&ix, accounts)?;
     Ok(())
 }

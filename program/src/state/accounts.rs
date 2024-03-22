@@ -1,7 +1,6 @@
-use crate::utils::{ANCHOR_BUFFER, MAX_DESCRIPTION, MAX_NAME, MAX_PRODUCTS};
 use anchor_lang::prelude::*;
 
-// this account is reference for data matric globally
+// Define the AccountData struct
 #[account]
 pub struct AccountData {
     pub bump_original: u8,          // 1
@@ -10,6 +9,7 @@ pub struct AccountData {
     pub positioning: Vec<Pubkey>,   // 4 + 9971 (311 products)
 }
 
+// Define the Product struct
 #[account]
 pub struct Product {
     pub bump_original: u8,   // 1
