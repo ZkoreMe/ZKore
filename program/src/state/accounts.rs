@@ -22,3 +22,71 @@ pub struct Product {
     pub image_url: String,   // 4
 }
 
+impl Product {
+    pub const SIZE: usize =
+        1 + 32 + 1 + 4 + MAX_NAME + 4 + MAX_DESCRIPTION + 4 + 8 + 4 + ANCHOR_BUFFER;
+
+    pub fn set_bump_original(&mut self, bump: u8) {
+        self.bump_original = bump;
+    }
+
+    pub fn set_authority(&mut self, authority: Pubkey) {
+        self.authority = authority;
+    }
+
+    pub fn set_name(&mut self, name: String) {
+        self.name = name;
+    }
+
+    pub fn set_description(&mut self, description: String) {
+        self.description = description;
+    }
+
+    pub fn set_supply(&mut self, supply: u32) {
+        self.supply = supply;
+    }
+
+    pub fn set_price(&mut self, price: u64) {
+        self.price = price;
+    }
+
+    pub fn set_image_url(&mut self, image_url: String) {
+        self.image_url = image_url;
+    }
+
+    pub fn update_supply(&mut self, supply: u32) {
+        self.supply += supply;
+    }
+}
+
+impl AccountData {
+    pub const SIZE: usize = 1 + 8 + 8 + 4 + MAX_PRODUCTS + ANCHOR_BUFFER;
+
+    pub fn set_bump_original(&mut self, bump: u8) {
+        self.bump_original = bump;
+    }
+
+    pub fn init_transactions(&mut self) {
+        self.transactions = 0;
+    }
+
+    pub fn init_av_ex_time(&mut self) {
+        self.average_exchange_time = 0; // null time (unixtimestamp metric)
+    }
+
+    pub fn init_positioning(&mut self) {
+        self.positioning = [].to_vec();
+    }
+
+    pub fn add_product(&mut self, product: Pubkey) {
+        if self.positioning.len() <= MAX_PRODUCTS {
+            self.positioning.push(product);
+        } else {
+            msg!("Product created, but not in positioning position!");
+        }
+    }
+
+    pub fn add_transactions(&mut self) {
+        self.transactions += 1;
+    }
+}
