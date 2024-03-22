@@ -1,5 +1,6 @@
 use anchor_lang::prelude::*;
-use crate::account::{AccountData, Product};
+use crate::account_data::AccountData;
+use crate::product::Product;
 
 #[program]
 mod marketplace {
@@ -42,3 +43,6 @@ const MAX_NAME: usize = 32;
 const MAX_DESCRIPTION: usize = 256;
 const MAX_PRODUCTS: usize = 311;
 const ANCHOR_BUFFER: usize = 16; // Adjust this value as needed
+
+mod product;
+mod account_data;
