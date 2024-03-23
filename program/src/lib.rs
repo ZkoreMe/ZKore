@@ -1,5 +1,6 @@
 pub mod marketplace;
 pub mod account;
+pub mod product;
 
 pub use account::*;
 
