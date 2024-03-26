@@ -6,19 +6,15 @@ use crate::product::Product;
 mod marketplace {
     use super::*;
 
-    pub fn create_product(ctx: Context<CreateProduct>, name: String, description: String, supply: u32, price: u64, image_url: String) -> ProgramResult {
+    // Create product
+    pub fn create_product(ctx: Context<CreateProduct>, url: String) -> ProgramResult {
         let account_data = &mut ctx.accounts.account_data;
         let product_account = &mut ctx.accounts.product;
 
         // Your logic for creating a new product
         product_account.set_bump_original(account_data.bump_original);
         product_account.set_authority(ctx.accounts.authority.key());
-        product_account.set_active(true);
-        product_account.set_name(name);
-        product_account.set_description(description);
-        product_account.set_supply(supply);
-        product_account.set_price(price);
-        product_account.set_image_url(image_url);
+        product_account.set_product_url(url);
 
         account_data.add_product(ctx.accounts.product.key());
         account_data.add_transactions();
@@ -28,8 +24,15 @@ mod marketplace {
 
     // Add other program instructions here...
 
-    //exchange
-    //
+    // Purchasing a product
+    pub fn purchase_product(ctx: Context<PurchaseProduct>) -> ProgramResult {
+        let product = &ctx.accounts.product;
+
+        // Redirect URL
+        let redirect_url = product.url.clone();
+
+        Ok(redirect_url)
+    }
 }
 
 #[derive(Accounts)]
@@ -42,9 +45,14 @@ pub struct CreateProduct<'info> {
     pub system_program: Program<'info, System>,
 }
 
-const MAX_NAME: usize = 32;
-const MAX_DESCRIPTION: usize = 256;
-const MAX_PRODUCTS: usize = 311;
+#[derive(Accounts)]
+pub struct PurchaseProduct<'info> {
+    #[account(mut)]
+    pub user: Signer<'info>,
+    #[account(mut)]
+    pub product: Account<'info, Product>,
+}
+
 const ANCHOR_BUFFER: usize = 16; // Adjust this value as needed
 
 mod product;

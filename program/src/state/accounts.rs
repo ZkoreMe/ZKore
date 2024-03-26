@@ -1,3 +1,4 @@
+use crate::utils::{ANCHOR_BUFFER, MAX_PRODUCTS};
 use anchor_lang::prelude::*;
 
 #[account]
