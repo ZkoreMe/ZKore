@@ -25,7 +25,7 @@ pub mod state;
 pub mod utils;
 
 use instructions::{
-    marketplace::create_product, marketplace::purchase_product, init_sell_offer::init_sell_offer_,
+    marketplace::create_product, marketplace::purchase_product, init_accounts::init_global_account_,
     update_supply::update_supply_,
 };
 
@@ -34,6 +34,8 @@ declare_id!("");
 #[program]
 pub mod zkore {
     use super::*;
-
+    pub fn init_global_account(ctx: Context<InitGlobalAccount>) -> Result<()> {
+        init_global_account_(ctx)
+    }
 
 }

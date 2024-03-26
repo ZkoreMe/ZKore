@@ -28,6 +28,7 @@ impl AccountData {
         self.positioning = [].to_vec();
     }
 
+    //add referral
     pub fn add_product(&mut self, product: Pubkey) {
         if self.positioning.len() <= MAX_PRODUCTS {
             self.positioning.push(product);
@@ -35,8 +36,6 @@ impl AccountData {
             msg!("Product created, but not in positioning position!");
         }
     }
-
-    //add referral
 
     pub fn add_transactions(&mut self) {
         self.transactions += 1;
