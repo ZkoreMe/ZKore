@@ -3,6 +3,7 @@ import { FC, useEffect, useState } from "react";
 import reviewData from "data/reviewData";
 import Image from "next/image";
 import { ReviewDetails } from "types/reviewTypes";
+import Link from "next/link";
 
 interface ReviewDetailProps {
   reviewId: number | undefined;
@@ -25,7 +26,7 @@ export const ReviewDetail: FC<ReviewDetailProps> = ({ reviewId }) => {
         // Estrella llena
         stars.push(
           <i
-            className="ri-star-fill text-[#047BE9]"
+            className="ri-star-fill text-[#FA5D31]"
             style={{ fontSize: "18px" }}
             key={i}
           ></i>
@@ -34,7 +35,7 @@ export const ReviewDetail: FC<ReviewDetailProps> = ({ reviewId }) => {
         // Estrella media si el rate tiene decimal y estamos en el siguiente entero más cercano
         stars.push(
           <i
-            className="ri-star-half-line text-[#047BE9]"
+            className="ri-star-half-line text-[#FA5D31]"
             style={{ fontSize: "18px" }}
             key={i}
           ></i>
@@ -43,7 +44,7 @@ export const ReviewDetail: FC<ReviewDetailProps> = ({ reviewId }) => {
         // Estrella vacía
         stars.push(
           <i
-            className="ri-star-line text-[#047BE9]"
+            className="ri-star-line text-[#FA5D31]"
             style={{ fontSize: "18px" }}
             key={i}
           ></i>
@@ -67,21 +68,21 @@ export const ReviewDetail: FC<ReviewDetailProps> = ({ reviewId }) => {
       <div className="flex flex-col ml-[41px] mr-[41px] md:items-center mt-[40px]">
         <div className="flex items-center gap-[4px]">
           <i
-            className="ri-arrow-left-s-line text-[#65676B]"
-            style={{ fontSize: "18px" }}
+            className="ri-arrow-left-s-line text-[#292824] w-[24px] h-[24px] flex items-center"
+            style={{ fontSize: "24px" }}
           ></i>
-          <span className="text-[12px] text-[#65676B]">
+          <span className="text-[14px] text-[#292824]">
             remarmarea’s profile
           </span>
         </div>
         <div className="mt-[24px] flex flex-col gap-[12px]">
-          <h1 className="text-[21px] font-semibold">{review.tittle}</h1>
-          <span className="text-[#777E90] text-[14px] font-normal">
+          <h1 className="text-[21px] font-bold text-[#010100]">{review.tittle}</h1>
+          <span className="text-[#292824] text-[14px] font-normal">
             {review.date}
           </span>
           <span className="flex gap-[4px] items-center">
-            <i className="ri-award-fill" style={{ fontSize: "18px" }}></i>
-            <p className="text-[12px]">Verified purchase</p>
+            <i className="ri-award-fill text-[#292824]" style={{ fontSize: "18px" }}></i>
+            <p className="text-[12px] text-[#292824]">Verified purchase</p>
           </span>
           <div className="flex gap-[12px]">{renderStars(review.rate)}</div>
         </div>
@@ -106,15 +107,15 @@ export const ReviewDetail: FC<ReviewDetailProps> = ({ reviewId }) => {
           </span>
         </div>
         <div className="flex justify-center mb-[58px]">
-          <a href={review.referral}>
-            <button className="w-[308px] h-[48px] flex items-center justify-center gap-[12px] bg-[#047BE9] rounded-[8px] text-[#FFFFFF] text-[16px] font-medium">
+          <Link href={"/solanapay"}>
+            <button className="w-[308px] h-[48px] flex items-center justify-center gap-[12px] bg-[#FED302] rounded-[8px] text-[#010100] text-[16px] shadow-custom border-[2px] border-solid border-[#010100] font-medium">
               <i
-                className="ri-link-m text-[#FFFFFF]"
+                className="ri-link-m text-[#010100]"
                 style={{ fontSize: "24px" }}
               ></i>
-              Use referral
+              USE REFERRAL
             </button>
-          </a>
+          </Link>
         </div>
       </div>
     </div>

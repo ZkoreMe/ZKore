@@ -13,7 +13,7 @@ export const Search: FC = ({}) => {
         // Estrella llena
         stars.push(
           <i
-            className="ri-star-fill text-[#047BE9]"
+            className="ri-star-fill text-[#FA5D31]"
             style={{ fontSize: "18px" }}
             key={i}
           ></i>
@@ -22,7 +22,7 @@ export const Search: FC = ({}) => {
         // Estrella media si el rate tiene decimal y estamos en el siguiente entero más cercano
         stars.push(
           <i
-            className="ri-star-half-line text-[#047BE9]"
+            className="ri-star-half-line text-[#FA5D31]"
             style={{ fontSize: "18px" }}
             key={i}
           ></i>
@@ -31,7 +31,7 @@ export const Search: FC = ({}) => {
         // Estrella vacía
         stars.push(
           <i
-            className="ri-star-line text-[#047BE9]"
+            className="ri-star-line text-[#FA5D31]"
             style={{ fontSize: "18px" }}
             key={i}
           ></i>
@@ -41,60 +41,54 @@ export const Search: FC = ({}) => {
     return stars;
   };
   return (
-    <div className="">
+    <div className="mt-[20.65px]">
       <SearchBar />
-      <div className=" text-center mt-[32px] font-semibold text-[18px] not-italic text-[#010100] leading-relaxed">
+      <div className=" text-center mt-[32px] font-bold text-[18px] not-italic text-[#010100] leading-relaxed">
         <h1>Recent Activity</h1>
       </div>
-      <div className="flex flex-col justify-center items-center mt-[24px] gap-5">
+      <div className="flex flex-col items-center mt-[24px] gap-5">
         {activityData.map((activity) => (
           <div
             key={activity.id}
-            className=" w-[340px] h-[406px] flex flex-col items-center gap-[12px] rounded-[8px] border border-solid border-[#C9C8C8] "
+            className=" w-[340px] h-[406px] flex flex-col justify-center gap-[18px]"
           >
-            <div className="mt-[16px] flex justify-center gap-[12px] items-center">
-              <span className="flex gap-1 text-[12px] items-center font-medium text-[#65676B]">
+            <div className="mt-[16px] flex justify-between gap-[12px]">
+              <span className="flex gap-1 text-[12px] items-center font-medium text-[#292824]">
                 <i className="ri-ghost-fill" style={{ fontSize: "18px" }}></i>
                 {activity.user}
                 <p>wrote review on</p>
               </span>
               <Link href={`/exploreUser/${activity.user}`}>
-                <button className="w-[100px] h-[33px] border border-[#047BE9] rounded-[8px] text-[#047BE9] text-[12px] font-medium">
+                <button className="w-[100px] h-[33px] border-b-[2px] border-[#FA5D31] text-[#FA5D31] text-[12px] font-medium">
                   Explore user
                 </button>
               </Link>
             </div>
-            <div className="w-[308px] h-[329px] bg-[#E8E8E8] flex flex-col gap-[12px] p-[16px]">
-              <Link href={`reviewDetail/${activity.id}`}>
-                <Image src={activity.img} alt="" width={276} height={105} />
-                <h1 className="font-semibold text-[16px] text-[#010100]">
+            <div className="w-[340px] h-[374px] bg-[#FDFDFD] flex flex-col justify-center gap-[12px] p-[16px] border-[2px] border-solid border-[#010100] rounded-[8px]">
+              <Link href={`reviewDetail/${activity.id}`} className="flex flex-col gap-[12px] border-b-[2px] border-solid border-[#010100] pb-[12px] ">
+                <Image src={activity.img} alt="" width={308} height={150} className="rounded-[8px]" />
+                <h1 className="font-bold text-[16px] text-[#010100]">
                   {activity.tittle}
                 </h1>
-                <div>{renderStars(activity.rate)}</div>
+                <div className="flex gap-[12px]">{renderStars(activity.rate)}</div>
                 <p className="text-[12px] font-normal text-[#010100]">
                   {activity.description}
                 </p>
               </Link>
-              <div className="flex justify-between">
-                <div className="flex gap-[8px] text-[#65676B] items-center">
+              <div className="flex justify-between mr-[40px] ml-[40px]">
+                <div className="flex gap-[8px] text-[#292824] items-center">
                   <i
                     className="ri-thumb-up-line"
                     style={{ fontSize: "24px" }}
                   ></i>
                   <span className="text-[12px]">{activity.like}</span>
                 </div>
-                <div className="flex gap-[8px] text-[#65676B] items-center">
+                <div className="flex gap-[8px] text-[#292824] items-center">
                   <i
                     className="ri-thumb-down-line"
                     style={{ fontSize: "24px" }}
                   ></i>
                   <span className="text-[12px]">{activity.dislike}</span>
-                </div>
-                <div className="flex gap-[8px] text-[#65676B] items-center">
-                  <i className="ri-link-m" style={{ fontSize: "24px" }}></i>
-                  <span className="text-[#777E90] text-[12px]">
-                    Use referral
-                  </span>
                 </div>
               </div>
             </div>
@@ -102,7 +96,7 @@ export const Search: FC = ({}) => {
         ))}
       </div>
       <div>
-        <span className="relative justify-center flex gap-[4px] mt-[24px] text-[#777E90] items-center mb-[45px]">
+        <span className="relative justify-center flex gap-[4px] mt-[24px] text-[#292824] text-[14px] items-center mb-[45px]">
           <p>Show more activity</p>
           <i className="ri-arrow-down-s-line " style={{ fontSize: "18px" }}></i>
         </span>
