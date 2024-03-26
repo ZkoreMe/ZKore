@@ -38,8 +38,6 @@ impl AccountData {
 
     //add referral
 
-    //buy product
-
     pub fn add_transactions(&mut self) {
         self.transactions += 1;
     }

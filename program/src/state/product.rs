@@ -8,7 +8,6 @@ pub struct Product {
     pub active: bool,        // 1
     pub name: String,        // 4 + MAX_NAME
     pub description: String, // 4 + MAX_DESCRIPTION
-    pub image_url: String,   // 4
     pub product_url: String, // 4
 }
 
@@ -32,15 +31,8 @@ impl Product {
         self.description = description;
     }
 
-    pub fn set_image_url(&mut self, image_url: String) {
-        self.image_url = image_url;
-    }
-
     pub fn set_product_url(&mut self, product_url: String) {
         self.product_url = product_url;
     }
 
-    pub fn update_supply(&mut self, supply: u32) {
-        self.supply += supply;
-    }
 }
