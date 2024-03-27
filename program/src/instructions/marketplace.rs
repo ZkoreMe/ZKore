@@ -1,5 +1,6 @@
 use anchor_lang::prelude::*;
-use crate::state::{accounts::AccountData, product::Product, review::Review,};
+use crate::state::{accounts::AccountData, product::Product, review::Review};
+use crate::ID;
 use serde_json::{json, Value};
 
 #[program]
@@ -20,15 +21,14 @@ mod marketplace {
 
         // Serialize product data into JSON
         let products_json: Vec<Value> = all_products
-        .iter()
-        .map(|product| {
-            json!({
+            .iter()
+            .map(|product| {
+                json!({
                 "name": product.name,
                 "description": product.description,
                 // Add other fields as needed
             })
-        })
-        .collect();
+            }).collect();
 
         // Convert JSON data to bytes
         let json_bytes = serde_json::to_vec(&products_json)?;
@@ -59,7 +59,7 @@ mod marketplace {
     // Add review to product
     pub fn add_review(ctx: Context<AddReview>, rating: u8, comment: String) -> ProgramResult {
         let product = &mut ctx.accounts.product;
-        let review = Review { rating, comment };
+        let review = Review { rating, description };
         product.add_review(review);
         Ok(())
     }
@@ -74,7 +74,7 @@ mod marketplace {
         Ok(redirect_url)
     }
 
-     // Add other program instructions here...
+    // Add other program instructions here...
 }
 
 #[derive(Accounts)]
@@ -103,6 +103,11 @@ pub struct ViewProducts<'info> {
     pub system_program: Program<'info, System>,
 }
 
+pub struct AddReview<'info> {
+    #[account(mut)]
+    pub product: Account<'info, Product>,
+    // Add other accounts as needed
+}
 
-mod product;
-mod account_data;
+// Define ProgramResult type if it's not already defined in your project
+type ProgramResult = Result<(), ProgramError>;
