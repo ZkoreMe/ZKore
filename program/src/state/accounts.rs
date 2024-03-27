@@ -16,14 +16,6 @@ impl AccountData {
         self.bump_original = bump;
     }
 
-    pub fn init_transactions(&mut self) {
-        self.transactions = 0;
-    }
-
-    pub fn init_av_ex_time(&mut self) {
-        self.average_exchange_time = 0; // null time (unixtimestamp metric)
-    }
-
     pub fn init_product_list(&mut self) {
         self.product_list = [].to_vec();
     }
