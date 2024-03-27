@@ -1,5 +1,5 @@
 use anchor_lang::prelude::*;
-use crate::state::{accounts::AccountData, product::Product, review::Review};
+use crate::state::{accounts::AccountData, product::Product};
 use crate::ID;
 use serde_json::{json, Value};
 
@@ -24,10 +24,10 @@ mod marketplace {
             .iter()
             .map(|product| {
                 json!({
-                "name": product.name,
-                "description": product.description,
-                // Add other fields as needed
-            })
+                    "name": product.name,
+                    "description": product.description,
+                    // Add other fields as needed
+                })
             }).collect();
 
         // Convert JSON data to bytes
@@ -57,9 +57,12 @@ mod marketplace {
     }
 
     // Add review to product
-    pub fn add_review(ctx: Context<AddReview>, rating: u8, comment: String) -> ProgramResult {
+    pub fn add_review(ctx: Context<AddReview>, rating: u8, description: String) -> ProgramResult {
         let product = &mut ctx.accounts.product;
-        let review = Review { rating, description };
+        let review = Review {
+            rating,
+            description,
+        };
         product.add_review(review);
         Ok(())
     }
@@ -81,7 +84,7 @@ mod marketplace {
 pub struct CreateProduct<'info> {
     #[account(mut)]
     pub account_data: Account<'info, AccountData>,
-    #[account(init, payer = authority, space = Product::SIZE)]
+    #[account(mut)]
     pub product: Account<'info, Product>,
     pub authority: Signer<'info>,
     pub system_program: Program<'info, System>,
@@ -97,17 +100,16 @@ pub struct PurchaseProduct<'info> {
 
 #[derive(Accounts)]
 pub struct ViewProducts<'info> {
-    #[account(init, payer = authority, space = Product::SIZE * MAX_PRODUCTS)]
+    #[account(mut)]
     pub accounts: Vec<Account<'info, AccountData>>,
     pub authority: Signer<'info>,
     pub system_program: Program<'info, System>,
 }
 
 pub struct AddReview<'info> {
-    #[account(mut)]
+    pub user: Signer<'info>,
     pub product: Account<'info, Product>,
-    // Add other accounts as needed
 }
 
 // Define ProgramResult type if it's not already defined in your project
-type ProgramResult = Result<(), ProgramError>;
+type ProgramResult = Result;
