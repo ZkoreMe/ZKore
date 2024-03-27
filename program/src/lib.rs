@@ -25,8 +25,9 @@ pub mod state;
 pub mod utils;
 
 use instructions::{
-    marketplace::create_product, marketplace::purchase_product, init_accounts::init_global_account_,
-    update_supply::update_supply_,
+    marketplace::create_product,
+    marketplace::purchase_product,
+    init_accounts::init_global_account_,
 };
 
 declare_id!("");
