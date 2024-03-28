@@ -1,7 +1,7 @@
 pub use accounts::*;
-pub use product::*;
-pub use review::*;
+pub use products::*;
+pub use reviews::*;
 
 pub mod accounts;
-pub mod product;
-pub mod review;
+pub mod products;
+pub mod reviews;

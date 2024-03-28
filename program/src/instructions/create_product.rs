@@ -48,8 +48,12 @@ pub fn create_product(
 #[derive(Accounts)]
 #[instruction(image_url: String, product_url: String)]
 pub struct CreateProduct<'info> {
+    #[account(mut, signer)]
+    pub authority: AccountInfo<'info>,
+
     #[account(mut, seeds = [MAIN_ACCOUNT], bump = account_data.bump_original)]
     pub account_data: Account<'info, AccountData>,
+
     #[account(
         init,
         seeds = [&authority.key().to_bytes()],
@@ -57,10 +61,7 @@ pub struct CreateProduct<'info> {
         payer = authority,
         space = Product::SIZE + image_url.len() + product_url.len())]
     pub product_account: Account<'info, Product>,
-    /// CHECK: This is not dangerous
-    #[account(mut, signer)]
-    pub authority: AccountInfo<'info>,
-    /// CHECK: This is not dangerous
+
     #[account(mut)]
     pub pda: AccountInfo<'info>,
     pub system_program: Program<'info, System>,
