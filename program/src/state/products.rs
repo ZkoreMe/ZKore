@@ -37,6 +37,10 @@ impl Product {
         self.description = description;
     }
 
+    pub fn set_score(&mut self, score: f32) {
+        self.score = score;
+    }
+
     pub fn set_supply(&mut self, supply: u32) {
         self.supply = supply;
     }

@@ -2,7 +2,7 @@ use anchor_lang::prelude::*;
 use crate::{
     state::accounts::*,
     state::products::*,
-    utils::constants::{USER_ACCOUNT, MAX_DESCRIPTION, MAX_NAME},
+    utils::constants::{USER_ACCOUNT, PRODUCT_ACCOUNT, MAX_DESCRIPTION, MAX_NAME},
 };
 use anchor_lang::{
     prelude::*,
@@ -23,24 +23,26 @@ pub fn create_product_(
     let balance: u64 = **ctx.accounts.authority.to_account_infos()[0].lamports.borrow();
     let total_amount: u64 = Rent::default().minimum_balance(Product::SIZE);
     let (pda_product, bump) = Pubkey::find_program_address(&[&signer.to_bytes()], ctx.program_id);
+
     // validate input & balances
     require_keys_eq!(pda, pda_product);
     require_gte!(balance, total_amount);
     require_gte!(MAX_NAME, name.len());
     require_gte!(MAX_DESCRIPTION, description.len());
     require_gt!(supply, 0);
+
     // update state
-    let product: &mut Account<Product> = &mut ctx.accounts.product_account;
+    let product_account: &mut Account<Product> = &mut ctx.accounts.product_account;
     let user_account: &mut Account<AccountData> = &mut ctx.accounts.user_account;
     user_account.add_product(pda_product);
-    product.set_bump_original(bump);
-    product.set_authority(signer);
-    product.set_name(name);
-    product.set_description(description);
-    product.set_supply(supply);
-    product.set_price(price);
-    product.set_image_url(image_url);
-    product.set_product_url(product_url);
+    product_account.set_bump_original(bump);
+    product_account.set_authority(signer);
+    product_account.set_name(name);
+    product_account.set_description(description);
+    product_account.set_supply(supply);
+    product_account.set_price(price);
+    product_account.set_image_url(image_url);
+    product_account.set_product_url(product_url);
 
     Ok(())
 }
@@ -56,7 +58,7 @@ pub struct CreateProduct<'info> {
 
     #[account(
         init,
-        seeds = [&authority.key().to_bytes()],
+        seeds = [PRODUCT_ACCOUNT, &authority.key().to_bytes()],
         bump,
         payer = authority,
         space = Product::SIZE + image_url.len() + product_url.len())]
