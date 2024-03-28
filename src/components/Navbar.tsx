@@ -3,7 +3,7 @@ import { useAutoConnect } from "../contexts/AutoConnectProvider";
 import dynamic from "next/dynamic";
 import NetworkSwitcher from "../components/NetworkSwitcher";
 import Image from "next/image";
-import ZKore from "../../public/ZKoreIcon.svg";
+import ZKore2 from "../../public/images/Zkore2.svg";
 import Link from "next/link";
 
 const WalletMultiButtonDynamic = dynamic(
@@ -22,32 +22,27 @@ const Navbar: FC = () => {
 
   return (
     <div>
-
-      <div className=" flex relative justify-between mr-[25px] ml-[25px] mt-[36px]">
+      <div className=" flex relative h-[69px] w-[340px] justify-between mr-[25px] ml-[25px] mt-[36px] border-[2px] border-solid border-[#010100] rounded-[8px] p-[12px] items-center bg-[#FDFDFD]">
         <Link href={"/"}>
           <div className=" flex flex-col gap-[8px]">
             <span className="flex gap-[8px] items-center">
-              <Image src={ZKore} alt="icon" />
-              <h1 className="text-[21px] font-semibold">ZKore</h1>
-            </span>
-            <span className="text-[10px] text-[#777E90] font-normal">
-              <h1>Discover, Review, Earn</h1>
+              <Image src={ZKore2} alt="icon" width={100.72} height={45} />
             </span>
           </div>
         </Link>
 
         <div className="flex gap-[16px] text-[#65676B]">
-          <i className="ri-heart-fill" style={{ fontSize: "24px" }}></i>
-          <i className="ri-user-3-fill" style={{ fontSize: "24px" }}></i>
+          <i className="ri-heart-fill text-[#292824]" style={{ fontSize: "24px" }}></i>
+          <i className="ri-user-3-fill text-[#292824]" style={{ fontSize: "24px" }}></i>
           <i
-            className="ri-menu-5-line"
+            className="ri-menu-5-line text-[#292824]"
             style={{ fontSize: "24px" }}
             onClick={toggleMenu}
           ></i>
         </div>
       </div>
       {toggle && (
-        <div className=" bg-[#F0F0F0] absolute z-10 flex flex-col w-full h-screen items-center pt-[50px] gap-10">
+        <div className=" bg-[#F8F4F0] absolute z-10 flex flex-col w-full h-screen items-center pt-[50px] gap-10">
           <label className="flex flex-col items-center gap-2">
             <span>Autoconnect</span>
             <input

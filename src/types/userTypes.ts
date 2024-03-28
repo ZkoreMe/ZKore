@@ -1,8 +1,14 @@
 interface Review {
   id: number;
-  tittle: string;
-  num: number;
+  user: string;
   img: string;
+  tittle: string;
+  rate: number;
+  description: string;
+  like: number;
+  dislike: number;
+  marker: boolean;
+  reviewId: number;
 }
 
 export interface User {
@@ -14,5 +20,4 @@ export interface User {
   numReferalls: number;
   numLikes: number;
   reviews: Review[];
-  
 }

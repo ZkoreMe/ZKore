@@ -7,4 +7,5 @@ export interface Activity {
     description: string;
     like: number;
     dislike: number;
+    reviewId: number
   }

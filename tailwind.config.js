@@ -11,6 +11,9 @@ module.exports = {
       fontFamily: {
         // Define tus fuentes personalizadas
       },
+      boxShadow: {
+        'custom': '2px 2px 0px 0px #000',
+      },
       // Puedes añadir más personalizaciones aquí
     },
   },
