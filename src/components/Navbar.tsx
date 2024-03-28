@@ -21,9 +21,9 @@ const Navbar: FC = () => {
   };
 
   return (
-    <div>
-      <div className=" flex relative h-[69px] w-[340px] justify-between mr-[25px] ml-[25px] mt-[36px] border-[2px] border-solid border-[#010100] rounded-[8px] p-[12px] items-center bg-[#FDFDFD]">
-        <Link href={"/"}>
+    <div className="fixed top-0 left-1/2 transform -translate-x-1/2 z-50">
+      <div className=" flex relative h-[69px] w-[340px] justify-between  mt-[36px] border-[2px] border-solid border-[#010100] rounded-[8px] p-[12px] items-center bg-[#FDFDFD]">
+        <Link href={"/search"}>
           <div className=" flex flex-col gap-[8px]">
             <span className="flex gap-[8px] items-center">
               <Image src={ZKore2} alt="icon" width={100.72} height={45} />

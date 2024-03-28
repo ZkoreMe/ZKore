@@ -19,6 +19,7 @@ import reviewData from "data/reviewData";
 import { ReviewDetails } from "types/reviewTypes";
 import Link from "next/link";
 import React from 'react';
+import { PublicKey } from '@solana/web3.js';
 
 interface PaySolReview {
   id: number;
@@ -118,6 +119,7 @@ function Checkout({ payS }: CheckoutProps) {
     };
 
     const url = encodeURL(urlParams);
+    console.log(url)
     const qr = createQR(url, 260, "transparent");
 
     if (qrRef.current && new_amount.isGreaterThan(0)) {
@@ -181,7 +183,7 @@ function Checkout({ payS }: CheckoutProps) {
   }, [amount, start, count]);
 
   return (
-    <div className="flex flex-col items-center gap-8 mt-[42.5px]">
+    <div className="flex flex-col items-center gap-8 mt-[42.5px] mb-[48.5px]">
       <div className="flex flex-col gap-[20px]">
         <Link href={`/reviewDetail/${review?.id}`}>
           <div className="flex items-center gap-[4px]">
