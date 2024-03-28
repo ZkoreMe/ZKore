@@ -2,14 +2,14 @@ use anchor_lang::prelude::*;
 use crate::{
     state::accounts::*,
     state::products::*,
-    utils::constants::{MAIN_ACCOUNT, MAX_DESCRIPTION, MAX_NAME},
+    utils::constants::{USER_ACCOUNT, MAX_DESCRIPTION, MAX_NAME},
 };
 use anchor_lang::{
     prelude::*,
     solana_program::{pubkey::Pubkey, rent::Rent},
 };
 
-pub fn create_product(
+pub fn create_product_(
     ctx: Context<CreateProduct>,
     name: String,
     description: String,
@@ -31,8 +31,8 @@ pub fn create_product(
     require_gt!(supply, 0);
     // update state
     let product: &mut Account<Product> = &mut ctx.accounts.product_account;
-    let account_data: &mut Account<AccountData> = &mut ctx.accounts.account_data;
-    account_data.add_product(pda_product);
+    let user_account: &mut Account<AccountData> = &mut ctx.accounts.user_account;
+    user_account.add_product(pda_product);
     product.set_bump_original(bump);
     product.set_authority(signer);
     product.set_name(name);
@@ -51,8 +51,8 @@ pub struct CreateProduct<'info> {
     #[account(mut, signer)]
     pub authority: AccountInfo<'info>,
 
-    #[account(mut, seeds = [MAIN_ACCOUNT], bump = account_data.bump_original)]
-    pub account_data: Account<'info, AccountData>,
+    #[account(mut, seeds = [USER_ACCOUNT], bump = user_account.bump_original)]
+    pub user_account: Account<'info, AccountData>,
 
     #[account(
         init,

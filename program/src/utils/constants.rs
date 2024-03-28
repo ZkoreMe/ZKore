@@ -4,14 +4,19 @@ use anchor_lang::prelude::*;
 pub const ANCHOR_BUFFER: usize = 8;
 
 #[constant]
-pub const MAIN_ACCOUNT: &[u8; 12] = b"MAIN_ACCOUNT";
+pub const USER_ACCOUNT: &[u8; 12] = b"USER_ACCOUNT";
+
+#[constant]
+pub const PRODUCT_ACCOUNT: &[u8; 12] = b"PRODUCT_ACCOUNT";
+
+#[constant]
+pub const REVIEW_ACCOUNT: &[u8; 12] = b"REVIEW_ACCOUNT";
 
 #[constant]
 pub const MAX_NAME: usize = 32;
 
 #[constant]
 pub const MAX_DESCRIPTION: usize = 200;
-
 
 #[constant]
 pub const MAX_VECTOR: usize = 9971;
