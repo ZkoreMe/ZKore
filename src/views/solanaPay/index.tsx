@@ -18,6 +18,7 @@ import BigNumber from "bignumber.js";
 import reviewData from "data/reviewData";
 import { ReviewDetails } from "types/reviewTypes";
 import Link from "next/link";
+import React from 'react';
 
 interface PaySolReview {
   id: number;
