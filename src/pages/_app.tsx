@@ -16,7 +16,7 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
       </Head>
 
       <ContextProvider>
-        <div className=" flex flex-col items-center">
+        <div className=" flex flex-col items-center mt-[105px]">
           <Navbar />
           <Component {...pageProps} />
         </div>

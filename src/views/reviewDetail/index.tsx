@@ -93,7 +93,7 @@ export const ReviewDetail: FC<ReviewDetailProps> = ({ reviewId }) => {
           </span>
           <div className="flex gap-[12px]">{renderStars(review.rate)}</div>
         </div>
-        <div className="flex flex-col items-center justify-center mt-[24px] gap-[24px]">
+        <div className="flex flex-col items-center justify-center mt-[24px] gap-[24px] w-[340px]">
           <Image src={review.img} alt="" width={308} height={493.74} />
           <p className=" text-[12px] font-medium">{review.description}</p>
         </div>
