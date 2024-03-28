@@ -3,6 +3,7 @@ import { FC, useEffect, useState } from "react";
 import userData from "data/userData";
 import Image from "next/image";
 import { User } from "types/userTypes";
+import CardUserReview from "components/CardUserReview";
 
 interface ExploreUserProps {
   userId: string | string[] | undefined;
@@ -72,22 +73,7 @@ export const ExploreUser: FC<ExploreUserProps> = ({ userId }) => {
         <span>Wishlist</span>
       </div>
       <div className="flex flex-col items-center gap-[12px] mt-[24px] mb-[49px]">
-        {user.reviews.map((review) => (
-          <div
-            key={review.id}
-            className="w-[340px] h-[253px] flex flex-col items-center"
-          >
-            <div className=" border-b-[2px] w-full flex justify-center border-solid border-[#010100] pb-[12px]">
-              <Image src={review.img} alt="product" width={180} height={180} />
-            </div>
-            <div className="flex flex-col w-full mt-[12px] gap-[4px]">
-              <h1 className="text-[18px] font-bold">{review.tittle}</h1>
-              <span className="text-[14px] font-normal text-[#292824]">
-                {review.num} reviews
-              </span>
-            </div>
-          </div>
-        ))}
+        <CardUserReview userR={user.reviews} />
       </div>
     </div>
   );

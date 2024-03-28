@@ -66,22 +66,29 @@ export const ReviewDetail: FC<ReviewDetailProps> = ({ reviewId }) => {
   return (
     <div className="">
       <div className="flex flex-col ml-[41px] mr-[41px] md:items-center mt-[40px]">
-        <div className="flex items-center gap-[4px]">
-          <i
-            className="ri-arrow-left-s-line text-[#292824] w-[24px] h-[24px] flex items-center"
-            style={{ fontSize: "24px" }}
-          ></i>
-          <span className="text-[14px] text-[#292824]">
-            remarmarea’s profile
-          </span>
-        </div>
+        <Link href={`/exploreUser/${review.user}`}>
+          <div className="flex items-center gap-[4px]">
+            <i
+              className="ri-arrow-left-s-line text-[#292824] w-[24px] h-[24px] flex items-center"
+              style={{ fontSize: "24px" }}
+            ></i>
+            <span className="text-[14px] text-[#292824]">
+              {review.name} profile
+            </span>
+          </div>
+        </Link>
         <div className="mt-[24px] flex flex-col gap-[12px]">
-          <h1 className="text-[21px] font-bold text-[#010100]">{review.tittle}</h1>
+          <h1 className="text-[21px] font-bold text-[#010100]">
+            {review.tittle}
+          </h1>
           <span className="text-[#292824] text-[14px] font-normal">
             {review.date}
           </span>
           <span className="flex gap-[4px] items-center">
-            <i className="ri-award-fill text-[#292824]" style={{ fontSize: "18px" }}></i>
+            <i
+              className="ri-award-fill text-[#292824]"
+              style={{ fontSize: "18px" }}
+            ></i>
             <p className="text-[12px] text-[#292824]">Verified purchase</p>
           </span>
           <div className="flex gap-[12px]">{renderStars(review.rate)}</div>
@@ -107,7 +114,7 @@ export const ReviewDetail: FC<ReviewDetailProps> = ({ reviewId }) => {
           </span>
         </div>
         <div className="flex justify-center mb-[58px]">
-          <Link href={"/solanapay"}>
+          <Link href={`/payProduct/${review.payId}`}>
             <button className="w-[308px] h-[48px] flex items-center justify-center gap-[12px] bg-[#FED302] rounded-[8px] text-[#010100] text-[16px] shadow-custom border-[2px] border-solid border-[#010100] font-medium">
               <i
                 className="ri-link-m text-[#010100]"
