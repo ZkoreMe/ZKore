@@ -9,6 +9,7 @@ pub struct Product {
     pub active: bool,        // 1
     pub name: String,        // 4 + MAX_NAME
     pub description: String, // 4 + MAX_DESCRIPTION
+    pub score: f32,          // 4
     pub supply: u32,         // 4
     pub price: u64,          // 8
     pub image_url: String,   // 4
