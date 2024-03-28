@@ -1,8 +1,8 @@
 use crate::utils::{ANCHOR_BUFFER, MAX_DESCRIPTION, MAX_NAME, MAX_VECTOR};
-use crate::review::Review;
 use anchor_lang::prelude::*;
 
 #[account]
+#[derive(Default)]
 pub struct Product {
     pub bump_original: u8,   // 1
     pub authority: Pubkey,   // 32
@@ -14,7 +14,7 @@ pub struct Product {
     pub price: u64,          // 8
     pub image_url: String,   // 4
     pub product_url: String, // 4
-    pub reviews: Vec<Review>,// 4 + MAX_VECTOR (311 products)
+    pub reviews: Vec<Pubkey>,// 4 + MAX_VECTOR (311 products)
 }
 
 impl Product {
@@ -53,7 +53,7 @@ impl Product {
         self.product_url = product_url;
     }
 
-    pub fn add_review(&mut self, review: Review) {
+    pub fn add_review(&mut self, review: Pubkey) {
         self.reviews.push(review);
     }
 

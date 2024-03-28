@@ -7,38 +7,38 @@ use serde_json::{json, Value};
 mod marketplace {
     use super::*;
 
-    // Fetch products from all user accounts
-    pub fn view_products(ctx: Context<ViewProducts>) -> ProgramResult {
-        // Fetch all accounts
-        let accounts = ctx.accounts.accounts.iter();
+    // // Fetch products from all user accounts
+    // pub fn view_products(ctx: Context<ViewProducts>) -> ProgramResult {
+    //     // Fetch all accounts
+    //     let accounts = ctx.accounts.accounts.iter();
 
-        // Collect products from each account
-        let mut all_products = Vec::new();
-        for account in accounts {
-            let products = account.get_products();
-            all_products.extend_from_slice(&products);
-        }
+    //     // Collect products from each account
+    //     let mut all_products = Vec::new();
+    //     for account in accounts {
+    //         let products = account.get_products();
+    //         all_products.extend_from_slice(&products);
+    //     }
 
-        // Serialize product data into JSON
-        let products_json: Vec<Value> = all_products
-            .iter()
-            .map(|product| {
-                json!({
-                    "name": product.name,
-                    "description": product.description,
-                    // Add other fields as needed
-                })
-            }).collect();
+    //     // Serialize product data into JSON
+    //     let products_json: Vec<Value> = all_products
+    //         .iter()
+    //         .map(|product| {
+    //             json!({
+    //                 "name": product.name,
+    //                 "description": product.description,
+    //                 // Add other fields as needed
+    //             })
+    //         }).collect();
 
-        // Convert JSON data to bytes
-        let json_bytes = serde_json::to_vec(&products_json)?;
+    //     // Convert JSON data to bytes
+    //     let json_bytes = serde_json::to_vec(&products_json)?;
 
-        // Return JSON data as response
-        ctx.accounts.send_response(json_bytes)?;
+    //     // Return JSON data as response
+    //     ctx.accounts.send_response(json_bytes)?;
 
-        // Handle the list of all products as needed
-        Ok(())
-    }
+    //     // Handle the list of all products as needed
+    //     Ok(())
+    // }
 
     // Create product
     pub fn create_product(ctx: Context<CreateProduct>, url: String) -> ProgramResult {
