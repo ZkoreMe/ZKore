@@ -28,7 +28,7 @@ pub fn create_review_(
 
     // update state
     let review_account: &mut Account<Review> = &mut ctx.accounts.review_account;
-    let product_account: &mut Account<AccountData> = &mut ctx.accounts.product_account;
+    let product_account: &mut Account<Product> = &mut ctx.accounts.product_account;
     product_account.add_review(pda_review);
     review_account.set_bump_original(bump);
     review_account.set_authority(signer);
@@ -41,13 +41,13 @@ pub fn create_review_(
 }
 
 #[derive(Accounts)]
-#[instruction(image_url: String, product_url: String)]
+#[instruction(product_url: String)]
 pub struct CreateReview<'info> {
     #[account(mut, signer)]
     pub authority: AccountInfo<'info>,
 
     #[account(mut, seeds = [PRODUCT_ACCOUNT, &authority.key().to_bytes()], bump = product_account.bump_original)]
-    pub product_account: Account<'info, AccountData>,
+    pub product_account: Account<'info, Product>,
 
     #[account(
         init,
