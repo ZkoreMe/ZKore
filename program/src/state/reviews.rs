@@ -39,7 +39,7 @@ impl Review {
     pub fn set_rating(&mut self, rating: f32) {
         self.rating = rating;
     }
-
+    
     pub fn set_product_url(&mut self, product_url: String) {
         self.product_url = product_url;
     }

@@ -4,4 +4,4 @@ export { Search } from "./search";
 export { ExploreUser } from "./exploreUser";
 export { ReviewDetail } from "./reviewDetail";
 export { PayProductStep } from "./payProduct";
-
+export { PaySolConfirmed } from "./paySolConfirm";
