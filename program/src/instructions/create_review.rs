@@ -12,7 +12,6 @@ pub fn create_review_(
     ctx: Context<CreateReview>,
     name: String,
     description: String,
-    rating: f32,
     product_url: String,
 ) -> Result<()> {
     let signer: Pubkey = ctx.accounts.authority.key();
@@ -35,7 +34,7 @@ pub fn create_review_(
     review_account.set_authority(signer);
     review_account.set_name(name);
     review_account.set_description(description);
-    review_account.set_rating(rating);
+    review_account.set_rating(0.0); //initial rating
     review_account.set_product_url(product_url);
 
     Ok(())

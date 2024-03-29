@@ -24,4 +24,13 @@ pub mod zkore {
         create_product_(ctx, name, description, supply, price, image_url, product_url)
     }
 
+    pub fn create_review(
+        ctx: Context<InitSellOffer>,
+        name: String,
+        description: String,
+        product_url: String,
+    ) -> Result<()> {
+        create_review_(ctx, name, description, product_url)
+    }
+
 }
