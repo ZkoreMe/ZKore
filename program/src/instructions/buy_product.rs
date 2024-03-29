@@ -10,9 +10,6 @@ use anchor_lang::{
 
 pub fn buy_product_(
     ctx: Context<BuyProduct>,
-    name: String,
-    description: String,
-    product_url: String,
 ) -> Result<()> {
     let signer: Pubkey = ctx.accounts.authority.key();
     // let pda: Pubkey = ctx.accounts.pda.key();
