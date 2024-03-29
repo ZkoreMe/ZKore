@@ -3,12 +3,15 @@ import { FC, useEffect, useState } from "react";
 import SearchBar from "components/SearchBar";
 import Offers from "components/Offers";
 import CardReview from "components/CardReview";
+import CategoryCard from "components/CategoryCard";
 
 export const Search: FC = ({}) => {
-
   return (
     <div className="mt-[20.65px]">
       <SearchBar />
+      <div className="flex w-[340px] overflow-scroll mt-[24px]">
+        <CategoryCard />
+      </div>
 
       <div className="mt-[36px] flex flex-col items-center gap-[20px]">
         <h1 className="text-[#010100] text-[18px] font-bold">
@@ -26,7 +29,7 @@ export const Search: FC = ({}) => {
         <h1>Recent Activity</h1>
       </div>
       <div className="mt-[24px]">
-        <CardReview/>
+        <CardReview />
       </div>
       <div>
         <span className="relative justify-center flex gap-[4px] mt-[24px] text-[#292824] text-[14px] items-center mb-[45px]">
