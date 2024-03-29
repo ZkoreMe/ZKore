@@ -12,36 +12,12 @@ import { clusterApiUrl, Connection, Keypair } from "@solana/web3.js";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useRef } from "react";
 import { shopAddress, usdcAddress } from "../../lib/addresses";
-import calculatePrice from "../../lib/calculatePrice";
 import { useState } from "react";
 import BigNumber from "bignumber.js";
 import reviewData from "data/reviewData";
 import { ReviewDetails } from "types/reviewTypes";
 import Link from "next/link";
-import React from 'react';
-import { PublicKey } from '@solana/web3.js';
-
-interface PaySolReview {
-  id: number;
-  user: string;
-  name: string;
-  date: string;
-  img: string;
-  tittle: string;
-  rate: number;
-  description: string;
-  like: number;
-  dislike: number;
-  referral: string;
-  img2: string[];
-  payId: number;
-  price: number;
-  discount: number;
-  url: string;
-  time: string;
-  firstprice: number;
-  quantity: number;
-}
+import React from "react";
 
 interface CheckoutProps {
   payS: number;
@@ -49,12 +25,19 @@ interface CheckoutProps {
 
 // Cambiado a la declaración de función directa
 function Checkout({ payS }: CheckoutProps) {
+  //se declara el objeto del review
   const [review, setReview] = useState<ReviewDetails | undefined>();
 
+  // Obtener revisión al inicio o cuando payS cambia
   useEffect(() => {
-    if (typeof payS === "number") {
-      const foundReview = reviewData.find((Review) => Review.id === payS);
+    const foundReview = reviewData.find((r) => r.id === payS);
+    if (foundReview) {
       setReview(foundReview);
+      const calculatedAmount = new BigNumber(foundReview.price).multipliedBy(
+        foundReview.quantity
+      );
+      setAmount(calculatedAmount);
+      console.log("calculatedAmount:", calculatedAmount.toString());
     }
   }, [payS]);
 
@@ -75,13 +58,12 @@ function Checkout({ payS }: CheckoutProps) {
   const handleSelectChange = (e) => {
     // Obtiene el valor de la opción seleccionada.
     const selectedValue = e.target.value;
-  
+
     // Verifica si el valor seleccionado es "Solana".
     if (selectedValue === "Solana") {
       upgradeData();
     }
   };
-  
 
   useEffect(() => {
     if (review) {
@@ -103,11 +85,11 @@ function Checkout({ payS }: CheckoutProps) {
   }
 
   function upgradeData() {
-    console.log("count", count);
     let new_amount = checkPrice(); // Obtiene el nuevo precio calculado
 
     // Usa setAmount para actualizar el estado de amount con el nuevo valor calculado
     setAmount(new_amount);
+    console.log("new_amount:", new_amount.toString());
 
     const urlParams: TransferRequestURLFields = {
       recipient: shopAddress,
@@ -119,13 +101,17 @@ function Checkout({ payS }: CheckoutProps) {
     };
 
     const url = encodeURL(urlParams);
-    console.log(url)
+    console.log(url);
     const qr = createQR(url, 260, "transparent");
 
     if (qrRef.current && new_amount.isGreaterThan(0)) {
       qrRef.current.innerHTML = "";
       qr.append(qrRef.current);
       setStart(true);
+      // Aquí añades el setTimeout para redirigir después de 15 segundos
+      setTimeout(() => {
+        router.push(`/solpayconfirmed/${review?.id}`);
+      }, 15000); // 15000 milisegundos equivalen a 15 segundos
     }
   }
 
@@ -134,53 +120,7 @@ function Checkout({ payS }: CheckoutProps) {
   }, [count]);
 
   // Check every 0.5s if the transaction is completed
-  useEffect(() => {
-    if (start) {
-      const interval = setInterval(async () => {
-        try {
-          const signatureInfo = await findReference(connection, reference, {
-            finality: "confirmed",
-          });
-          const newAmount = checkPrice();
-          setAmount(newAmount); // Actualiza el estado usando setAmount
 
-          await validateTransfer(
-            connection,
-            signatureInfo.signature,
-            {
-              recipient: shopAddress,
-              amount,
-              splToken: usdcAddress,
-              reference,
-            },
-            { commitment: "confirmed" }
-          );
-
-          if (+count < +value) {
-            setStart(false);
-            setCount(count + 1);
-            console.log(count);
-          } else {
-            router.push("/confirmed");
-          }
-        } catch (e) {
-          if (e instanceof FindReferenceError) {
-            // No transaction found yet, ignore this error
-            return;
-          }
-          if (e instanceof ValidateTransferError) {
-            // Transaction is invalid
-            console.error("Transaction is invalid", e);
-            return;
-          }
-          console.error("Unknown error", e);
-        }
-      }, 500);
-      return () => {
-        clearInterval(interval);
-      };
-    }
-  }, [amount, start, count]);
 
   return (
     <div className="flex flex-col items-center gap-8 mt-[42.5px] mb-[48.5px]">

@@ -65,7 +65,7 @@ export const ReviewDetail: FC<ReviewDetailProps> = ({ reviewId }) => {
 
   return (
     <div className="">
-      <div className="flex flex-col ml-[41px] mr-[41px] md:items-center mt-[40px]">
+      <div className="flex flex-col ml-[41px] mr-[41px] md:items-center mt-[40px] w-[340px]">
         <Link href={`/exploreUser/${review.user}`}>
           <div className="flex items-center gap-[4px]">
             <i

@@ -1,7 +1,7 @@
 import { PublicKey } from "@solana/web3.js"
 
 // Your shop wallet address
-export const shopAddress = new PublicKey('9DGH6yyCtjkYTM5fWX1e8933kuJz9txwRbNSuT2mR7he') 
+export const shopAddress = new PublicKey('2izSqBiuF4YGkqmZ2GKcN93fQAD16sWSchbQmaqQnqMH') 
 // this is the same for everyone! 
 export const usdcAddress = new PublicKey('4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU')
 

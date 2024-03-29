@@ -70,7 +70,6 @@ const CardReview: FC = () => {
                   width={308}
                   height={150}
                   className="rounded-[8px]"
-                  objectFit="cover"
                 />
               </div>
               <h1 className="font-bold text-[16px] text-[#010100]">
