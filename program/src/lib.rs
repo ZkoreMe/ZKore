@@ -13,7 +13,7 @@ pub mod zkore {
     }
 
     pub fn create_product(
-        ctx: Context<InitSellOffer>,
+        ctx: Context<CreateProduct>,
         name: String,
         description: String,
         supply: u32,
@@ -24,4 +24,18 @@ pub mod zkore {
         create_product_(ctx, name, description, supply, price, image_url, product_url)
     }
 
+    pub fn create_review(
+        ctx: Context<CreateReview>,
+        name: String,
+        description: String,
+        product_url: String,
+    ) -> Result<()> {
+        create_review_(ctx, name, description, product_url)
+    }
+
+    pub fn buy_product(
+        ctx: Context<BuyProduct>,
+    ) -> Result<()> {
+        buy_product_(ctx)
+    }
 }
