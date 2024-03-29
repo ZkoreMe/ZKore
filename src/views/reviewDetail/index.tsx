@@ -94,10 +94,10 @@ export const ReviewDetail: FC<ReviewDetailProps> = ({ reviewId }) => {
           <div className="flex gap-[12px]">{renderStars(review.rate)}</div>
         </div>
         <div className="flex flex-col items-center justify-center mt-[24px] gap-[24px] w-[340px]">
-          <Image src={review.img} alt="" width={308} height={493.74} />
-          <p className=" text-[12px] font-medium">{review.description}</p>
+          <Image src={review.img} alt="" width={340} height={438} className=" rounded-[8px]"/>
+          <span className=" text-[14px] font-medium">{review.description}</span>
         </div>
-        <div className="flex justify-evenly pt-[24px] mt-[24px] border-t-[1px] border-solid border-[#C9C8C8] mb-[36px]">
+        <div className="flex justify-evenly pt-[24px] mt-[24px] border-t-[2px] border-solid border-[#292824] mb-[36px]">
           <span className="flex gap-[8px] items-center">
             <i
               className="ri-thumb-up-line text-[#65676B]"
