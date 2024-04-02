@@ -1,7 +1,8 @@
-use crate::utils::{ANCHOR_BUFFER, MAX_VECTOR};
 use anchor_lang::prelude::*;
+use crate::utils::{ANCHOR_BUFFER, MAX_VECTOR};
 
 #[account]
+#[derive(Default, Debug, PartialEq)]
 pub struct AccountData {
     pub bump_original: u8,          // 1
     pub transactions: u64,          // 8
@@ -10,7 +11,7 @@ pub struct AccountData {
 }
 
 impl AccountData {
-    pub const SIZE: usize = 1 + 8 + 8 + ANCHOR_BUFFER;
+    pub const SIZE: usize = 1 + 8 + 8 + 4 + MAX_VECTOR + ANCHOR_BUFFER;
 
     pub fn set_bump_original(&mut self, bump: u8) {
         self.bump_original = bump;

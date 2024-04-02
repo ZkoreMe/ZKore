@@ -1,12 +1,9 @@
 use anchor_lang::prelude::*;
+use anchor_lang::solana_program::{pubkey::Pubkey, rent::Rent};
 use crate::{
-    state::accounts::*,
-    state::products::*,
-    utils::constants::{USER_ACCOUNT, PRODUCT_ACCOUNT, MAX_DESCRIPTION, MAX_NAME},
-};
-use anchor_lang::{
-    prelude::*,
-    solana_program::{pubkey::Pubkey, rent::Rent},
+    state::accounts::AccountData,
+    state::products::Product,
+    utils::constants::{MAX_DESCRIPTION, MAX_NAME, PRODUCT_ACCOUNT, USER_ACCOUNT},
 };
 
 pub fn create_product_(
@@ -20,7 +17,9 @@ pub fn create_product_(
 ) -> Result<()> {
     let signer: Pubkey = ctx.accounts.authority.key();
     let pda: Pubkey = ctx.accounts.pda.key();
-    let balance: u64 = **ctx.accounts.authority.to_account_infos()[0].lamports.borrow();
+    let balance: u64 = **ctx.accounts.authority.to_account_infos()[0]
+        .lamports
+        .borrow();
     let total_amount: u64 = Rent::default().minimum_balance(Product::SIZE);
     let (pda_product, bump) = Pubkey::find_program_address(&[&signer.to_bytes()], ctx.program_id);
 
@@ -58,7 +57,7 @@ pub struct CreateProduct<'info> {
 
     #[account(
         init,
-        seeds = [PRODUCT_ACCOUNT, &authority.key().to_bytes()],
+        seeds = [&PRODUCT_ACCOUNT[..], &authority.key().to_bytes()[..]],
         bump,
         payer = authority,
         space = Product::SIZE + image_url.len() + product_url.len())]
