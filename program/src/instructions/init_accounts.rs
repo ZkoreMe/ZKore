@@ -1,5 +1,5 @@
-use crate::{state::accounts::*, utils::constants::USER_ACCOUNT};
 use anchor_lang::{prelude::*, solana_program::pubkey::Pubkey};
+use crate::{state::accounts::AccountData, utils::constants::USER_ACCOUNT};
 
 pub fn init_user_account_(ctx: Context<InitUserAccount>) -> Result<()> {
     let program_id: &Pubkey = ctx.program_id;

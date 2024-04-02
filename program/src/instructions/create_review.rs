@@ -1,11 +1,8 @@
 use anchor_lang::prelude::*;
+use anchor_lang::solana_program::{pubkey::Pubkey, rent::Rent};
 use crate::{
-    state::*,
-    utils::constants::{PRODUCT_ACCOUNT, REVIEW_ACCOUNT, MAX_DESCRIPTION, MAX_NAME},
-};
-use anchor_lang::{
-    prelude::*,
-    solana_program::{pubkey::Pubkey, rent::Rent},
+    state::{products::Product, reviews::Review},
+    utils::constants::{MAX_DESCRIPTION, MAX_NAME, PRODUCT_ACCOUNT, REVIEW_ACCOUNT},
 };
 
 pub fn create_review_(
@@ -15,8 +12,10 @@ pub fn create_review_(
     product_url: String,
 ) -> Result<()> {
     let signer: Pubkey = ctx.accounts.authority.key();
-    let pda: Pubkey = ctx.accounts.pda.key();
-    let balance: u64 = **ctx.accounts.authority.to_account_infos()[0].lamports.borrow();
+    // let pda: Pubkey = ctx.accounts.pda.key();
+    let balance: u64 = **ctx.accounts.authority.to_account_infos()[0]
+        .lamports
+        .borrow();
     let total_amount: u64 = Rent::default().minimum_balance(Review::SIZE);
     let (pda_review, bump) = Pubkey::find_program_address(&[&signer.to_bytes()], ctx.program_id);
 
@@ -51,7 +50,7 @@ pub struct CreateReview<'info> {
 
     #[account(
         init,
-        seeds = [REVIEW_ACCOUNT, &authority.key().to_bytes()],
+        seeds = [&REVIEW_ACCOUNT[..], &authority.key().to_bytes()[..]],
         bump,
         payer = authority,
         space = Review::SIZE + product_url.len())]

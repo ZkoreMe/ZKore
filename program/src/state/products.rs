@@ -1,25 +1,37 @@
-use crate::utils::{ANCHOR_BUFFER, MAX_DESCRIPTION, MAX_NAME, MAX_VECTOR};
 use anchor_lang::prelude::*;
+use crate::utils::{ANCHOR_BUFFER, MAX_DESCRIPTION, MAX_NAME, MAX_VECTOR};
 
 #[account]
-#[derive(Default)]
+#[derive(Default, Debug, PartialEq)]
 pub struct Product {
-    pub bump_original: u8,   // 1
-    pub authority: Pubkey,   // 32
-    pub active: bool,        // 1
-    pub name: String,        // 4 + MAX_NAME
-    pub description: String, // 4 + MAX_DESCRIPTION
-    pub score: f32,          // 4
-    pub supply: u32,         // 4
-    pub price: u64,          // 8
-    pub image_url: String,   // 4
-    pub product_url: String, // 4
-    pub reviews: Vec<Pubkey>,// 4 + MAX_VECTOR (311 products)
+    pub bump_original: u8,    // 1
+    pub authority: Pubkey,    // 32
+    pub active: bool,         // 1
+    pub name: String,         // 4 + MAX_NAME
+    pub description: String,  // 4 + MAX_DESCRIPTION
+    pub score: f32,           // 4
+    pub supply: u32,          // 4
+    pub price: u64,           // 8
+    pub image_url: String,    // 4
+    pub product_url: String,  // 4
+    pub reviews: Vec<Pubkey>, // 4 + MAX_VECTOR (311 products)
 }
 
 impl Product {
-    pub const SIZE: usize =
-        1 + 32 + 1 + 4 + MAX_NAME + 4 + MAX_DESCRIPTION + 4 + 8 + 4 + 4 + 4 + MAX_VECTOR + ANCHOR_BUFFER;
+    pub const SIZE: usize = 1
+        + 32
+        + 1
+        + 4
+        + MAX_NAME
+        + 4
+        + MAX_DESCRIPTION
+        + 4
+        + 8
+        + 4
+        + 4
+        + 4
+        + MAX_VECTOR
+        + ANCHOR_BUFFER;
 
     pub fn set_bump_original(&mut self, bump: u8) {
         self.bump_original = bump;

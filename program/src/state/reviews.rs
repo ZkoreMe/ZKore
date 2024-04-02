@@ -1,24 +1,21 @@
-// review.rs
-use crate::utils::{ANCHOR_BUFFER, MAX_DESCRIPTION, MAX_NAME};
 use anchor_lang::prelude::*;
+use crate::utils::{ANCHOR_BUFFER, MAX_DESCRIPTION, MAX_NAME};
 
-#[derive(Accounts)]
+#[account]
+#[derive(Default, Debug, PartialEq)]
 pub struct Review {
     // Define fields for the review
     pub bump_original: u8,   // 1
     pub authority: Pubkey,   // 32
     pub name: String,        // 4 + MAX_NAME
     pub description: String, // 4 + MAX_DESCRIPTION
-    pub rating: f32,          // 4
+    pub rating: f32,         // 4
     pub product_url: String, // 4
 
-    // Add other fields as needed
 }
 
 impl Review {
-    pub const SIZE: usize =
-        1 + 32 + 4 + MAX_NAME + 4 + MAX_DESCRIPTION + 4 + 4 + ANCHOR_BUFFER;
-
+    pub const SIZE: usize = 1 + 32 + 4 + MAX_NAME + 4 + MAX_DESCRIPTION + 4 + 4 + ANCHOR_BUFFER;
 
     pub fn set_bump_original(&mut self, bump: u8) {
         self.bump_original = bump;
