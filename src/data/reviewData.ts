@@ -15,11 +15,11 @@ const reviewData: ReviewDetails[] = [
     referral:"https://www.amazon.com.mx/Apple-Nuevo-MacBook-Chip-Pulgadas/dp/B08N6Q891V?ref_=ast_sto_dp&th=1&psc=1",
     img2: ["/images/apple3.png"],
     payId: 1,
-    price: 1000,
+    price: 1,
     discount: 13,
     url:"Apple.com/shop/buy-mac/macbook-air/13-inch-m3",
     time: "13h 19m left",
-    firstprice: 1099,
+    firstprice: 1.5,
     quantity: 1 
   },
   {
@@ -36,11 +36,11 @@ const reviewData: ReviewDetails[] = [
     referral:"https://www.amazon.com.mx/Apple-Nuevo-MacBook-Chip-Pulgadas/dp/B08N6Q891V?ref_=ast_sto_dp&th=1&psc=1",
     img2: ["/images/apple3.png"],
     payId: 2,
-    price: 5000,
+    price: 1,
     discount: 14,
     url:"Apple.com/shop/buy-mac/macbook-air/13-inch-m3",
     time: "13h 19m left",
-    firstprice: 6099, 
+    firstprice: 1.5, 
     quantity: 1
   },
   {
@@ -57,7 +57,7 @@ const reviewData: ReviewDetails[] = [
     referral:"https://www.amazon.com.mx/Apple-Nuevo-MacBook-Chip-Pulgadas/dp/B08N6Q891V?ref_=ast_sto_dp&th=1&psc=1",
     img2: ["/images/apple3.png"],
     payId: 3,
-    price: .2,
+    price: 1,
     discount: 224,
     url:"Apple.com/shop/buy-mac/macbook-air/13-inch-m3",
     time: "13h 19m left",
