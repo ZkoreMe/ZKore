@@ -24,7 +24,7 @@ const userData: User[] = [
       },
       {
         id: 2,
-        user: "3izS...nqMH",
+        user: "2izS...nqMH",
         img: "/images/pizza.png",
         tittle: "Macbook Air 13 M3",
         rate: 3,
@@ -47,7 +47,7 @@ const userData: User[] = [
     reviews: [
       {
         id: 1,
-        user: "2izS...nqMH",
+        user: "3izS...nqMH",
         img: "/images/sillon.png",
         tittle: "Macbook Air 13 M3",
         rate: 1.5,
@@ -56,6 +56,29 @@ const userData: User[] = [
         dislike: 2,
         marker: false,
         reviewId: 2
+      },
+    ],
+  },
+  {
+    id: "53jk...v3m1",
+    img: "/images/knifeduck.png",
+    user: "currUser",
+    instagram: "https://www.instagram.com/ramondinopro/",
+    numReviews: 1,
+    numReferalls: 3,
+    numLikes: 1,
+    reviews: [
+      {
+        id: 1,
+        user: "53jk...v3m1",
+        img: "/images/pizza.png",
+        tittle: "High End Pizza Shirt",
+        rate: 4,
+        description: "Pizza Shirt: Good material, easy to wash. Fits loosely for an oversized look.",
+        like: 1,
+        dislike: 2,
+        marker: true,
+        reviewId: 3
       },
     ],
   },
