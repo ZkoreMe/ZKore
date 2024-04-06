@@ -23,12 +23,10 @@ interface CheckoutProps {
   payS: number;
 }
 
-// Cambiado a la declaración de función directa
 function Checkout({ payS }: CheckoutProps) {
-  //se declara el objeto del review
   const [review, setReview] = useState<ReviewDetails | undefined>();
+  const [amount, setAmount] = useState(new BigNumber(0));
 
-  // Obtener revisión al inicio o cuando payS cambia
   useEffect(() => {
     const foundReview = reviewData.find((r) => r.id === payS);
     if (foundReview) {
@@ -41,20 +39,6 @@ function Checkout({ payS }: CheckoutProps) {
     }
   }, [payS]);
 
-  console.log(review?.id);
-
-  const [value, setValue] = useState("1");
-  const [start, setStart] = useState(false);
-  const [count, setCount] = useState(0);
-  const [amount, setAmount] = useState(new BigNumber(0));
-
-  const router = useRouter();
-  const qrRef = useRef<HTMLDivElement>(null); // ref to a div where we'll show the QR code
-  const reference = useMemo(() => Keypair.generate().publicKey, []); // Unique address that we can listen for payments to
-  const network = WalletAdapterNetwork.Devnet; // TODO Mainnet
-  const endpoint = clusterApiUrl(network);
-  const connection = new Connection(endpoint);
-
   const handleSelectChange = (e) => {
     // Obtiene el valor de la opción seleccionada.
     const selectedValue = e.target.value;
@@ -65,36 +49,19 @@ function Checkout({ payS }: CheckoutProps) {
     }
   };
 
-  useEffect(() => {
-    if (review) {
-      // Suponiendo que review incluye los detalles necesarios para el cálculo
-      const newAmount = new BigNumber(review.price).multipliedBy(
-        review.quantity
-      );
-      setAmount(newAmount);
-    }
-  }, [review]);
-
-  function checkPrice() {
-    let newPrice = new BigNumber(0);
-    if (review) {
-      // Multiplica el precio unitario por la cantidad seleccionada.
-      newPrice = new BigNumber(review.price).multipliedBy(value);
-    }
-    return newPrice;
-  }
+  const [start, setStart] = useState(false);
+  const router = useRouter();
+  const qrRef = useRef<HTMLDivElement>(null);
+  const reference = useMemo(() => Keypair.generate().publicKey, []);
+  const network = WalletAdapterNetwork.Devnet;
+  const endpoint = clusterApiUrl(network);
+  const connection = new Connection(endpoint);
 
   function upgradeData() {
-    let new_amount = checkPrice(); // Obtiene el nuevo precio calculado
-
-    // Usa setAmount para actualizar el estado de amount con el nuevo valor calculado
-    setAmount(new_amount);
-    console.log("new_amount:", new_amount.toString());
-
     const urlParams: TransferRequestURLFields = {
       recipient: shopAddress,
       splToken: usdcAddress,
-      amount: new_amount,
+      amount: amount,
       reference,
       label: "Zkore",
       message: "Thank you for your purchase!",
@@ -104,23 +71,100 @@ function Checkout({ payS }: CheckoutProps) {
     console.log(url);
     const qr = createQR(url, 260, "transparent");
 
-    if (qrRef.current && new_amount.isGreaterThan(0)) {
+    if (qrRef.current && amount.isGreaterThan(0)) {
       qrRef.current.innerHTML = "";
       qr.append(qrRef.current);
       setStart(true);
       // Aquí añades el setTimeout para redirigir después de 15 segundos
-      setTimeout(() => {
+      /** setTimeout(() => {
         router.push(`/solpayconfirmed/${review?.id}`);
-      }, 15000); // 15000 milisegundos equivalen a 15 segundos
+      }, 15000); // 15000 milisegundos equivalen a 15 segundos */
     }
   }
 
+  console.log(reference);
   useEffect(() => {
-    console.log(count);
-  }, [count]);
+    let retryTimeoutId;
+    let navigationTimeoutId; // Additional timeout ID for navigation fallback
+    let retryDelay = 1000; // Starts with 1 second
+    let totalTimeElapsed = 0; // Adds a total time accumulator
+    const maxDelay = 60000; // Maximum wait time adjusted to 1 minute
+    const navigationFallbackDelay = 32000; // Fallback navigation delay set to 32 seconds
 
-  // Check every 0.5s if the transaction is completed
+    const verifyTransaction = async () => {
+      console.log("Inside verifyTransaction");
+      try {
+        const signatureInfo = await findReference(connection, reference, {
+          finality: "finalized",
+        });
+        console.log("After calling findReference");
+        console.log("signatureInfo:", signatureInfo);
+        console.log(signatureInfo);
 
+        await validateTransfer(
+          connection,
+          signatureInfo.signature,
+          {
+            recipient: shopAddress,
+            amount: amount,
+            splToken: usdcAddress,
+            reference,
+          },
+          { commitment: "finalized" }
+        );
+
+        console.log("Transacción validada con éxito");
+        clearTimeout(navigationTimeoutId);
+        setStart(false);
+        router.push(`/solpayconfirmed/${review.id}`);
+        retryDelay = 10000; // Restablece para futuras verificaciones
+      } catch (e) {
+        console.error("Error en verifyTransaction:", e);
+        if (e instanceof FindReferenceError) {
+          console.log("Transacción no encontrada, reintentando...");
+        } else if (
+          e instanceof ValidateTransferError ||
+          e.message.includes("429")
+        ) {
+          console.error(
+            `Demasiadas solicitudes, reintentando con ${retryDelay}ms de delay...`
+          );
+        } else {
+          console.error("Error verificando la transacción", e);
+          setStart(false); // Detiene la verificación
+          return;
+        }
+
+        totalTimeElapsed += retryDelay;
+        if (totalTimeElapsed >= maxDelay) {
+          console.log(
+            "Máximo tiempo de espera alcanzado, ofreciendo reintento..."
+          );
+          setStart(false); // Detiene la verificación
+          // Aquí puedes actualizar el estado para mostrar la opción de generar un nuevo QR
+          return;
+        }
+        retryTimeoutId = setTimeout(verifyTransaction, retryDelay);
+        retryDelay = Math.min(maxDelay, retryDelay * 2); // Aumenta el delay para el próximo reintento
+      }
+    };
+
+    if (start) {
+      verifyTransaction();
+    }
+
+    console.log("After calling verifyTransaction");
+    navigationTimeoutId = setTimeout(() => {
+      console.log("Navigating due to timeout...");
+      router.push(`/solpayconfirmed/${review.id}`);
+    }, navigationFallbackDelay);
+
+    // Limpieza: Cancelar el timeout si el componente se desmonta o si 'start' cambia a false.
+    return () => {
+      clearTimeout(retryTimeoutId);
+      clearTimeout(navigationTimeoutId); // Make sure to clear this timeout as well
+    };
+  }, [start, review, connection, reference, router]); // Asegúrate de incluir 'value' y 'review' en las dependencias
 
   return (
     <div className="flex flex-col items-center gap-8 mt-[42.5px] mb-[48.5px]">
