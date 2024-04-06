@@ -1,5 +1,4 @@
 import { FC, useState } from "react";
-import offerData from "data/offerData";
 import Image from "next/image";
 import Link from "next/link";
 import activityData from "data/activityData";

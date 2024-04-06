@@ -76,7 +76,7 @@ export const UserProfile: FC<UserProfileProps> = ({ userId }) => {
       <div className="flex flex-col items-center gap-[12px] mt-[24px] mb-[24px]">
         <CardUserReview userR={user.reviews} />
       </div>
-      <Link href={`/`}>
+      <Link href={`/products`}>
         <button className="w-[308px] h-[48px] flex items-center justify-center gap-[12px] bg-[#FED302] rounded-[8px] text-[#010100] text-[16px] shadow-custom border-[2px] border-solid border-[#010100] font-medium">
           <i
             className="ri-link-m text-[#010100]"
