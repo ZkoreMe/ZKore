@@ -1,5 +1,5 @@
 // Next, React
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import SearchBar from "components/SearchBar";
 import Products from "components/Products";
 import CategoryCard from "components/CategoryCard";

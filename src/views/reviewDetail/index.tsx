@@ -79,7 +79,7 @@ export const ReviewDetail: FC<ReviewDetailProps> = ({ reviewId }) => {
         </Link>
         <div className="mt-[24px] flex flex-col gap-[12px]">
           <h1 className="text-[21px] font-bold text-[#010100]">
-            {review.tittle}
+            {review.title}
           </h1>
           <span className="text-[#292824] text-[14px] font-normal">
             {review.date}

@@ -6,7 +6,7 @@ interface UserReview {
   id: number;
   user: string;
   img: string;
-  tittle: string;
+  title: string;
   rate: number;
   description: string;
   like: number;
@@ -77,7 +77,7 @@ const CardUserReview: FC<CardUserReviewProps> = ({ userR }) => {
                 />
               </div>
               <h1 className="font-bold text-[16px] text-[#010100]">
-                {user.tittle}
+                {user.title}
               </h1>
               <div className="flex gap-[12px]">{renderStars(user.rate)}</div>
               <p className="text-[12px] font-normal text-[#010100]">

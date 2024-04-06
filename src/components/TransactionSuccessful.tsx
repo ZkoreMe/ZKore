@@ -89,7 +89,7 @@ const TransactionSuccessful: FC<PaySol> = ({ paysolId }) => {
           </div>
           <div className="flex flex-col gap-[8px] justify-center">
             <span className="text-[#292824] text-[12px] font-medium text-right">
-              {review.tittle}
+              {review.title}
             </span>
             <span className="text-[#292824] text-[12px] font-bold text-right">
               TOTAL ${review.price} USDC

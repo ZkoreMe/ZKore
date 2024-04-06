@@ -72,7 +72,7 @@ const CardReview: FC = () => {
                 />
               </div>
               <h1 className="font-bold text-[16px] text-[#010100]">
-                {activity.tittle}
+                {activity.title}
               </h1>
               <div className="flex gap-[12px]">
                 {renderStars(activity.rate)}

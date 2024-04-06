@@ -1,7 +1,7 @@
 export interface ProductDetails {
   id: number;
   img: string;
-  tittle: string;
+  title: string;
   brand: string;
   img2: string[];
   url: string;

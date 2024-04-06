@@ -1,17 +1,17 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { SearchProducts } from "views/searchProducts";
+import { CreateReview } from "views/createReview";
 
-const Products: NextPage = (props) => {
+const WriteReview: NextPage = (props) => {
   return (
     <div>
       <Head>
-        <title>Search Product</title>
+        <title>Write</title>
         <meta name="description" content="Basic Functionality" />
       </Head>
-      <SearchProducts />
+      <CreateReview />
     </div>
   );
 };
 
-export default Products;
+export default WriteReview;
