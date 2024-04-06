@@ -15,7 +15,7 @@ const SearchBar: FC = () => {
   const filteredReviews =
     searchTerm.length > 0
       ? reviewData.filter((review) =>
-          review.tittle.toLowerCase().includes(searchTerm.toLowerCase())
+          review.title.toLowerCase().includes(searchTerm.toLowerCase())
         )
       : [];
   const review = reviewData;
@@ -40,7 +40,7 @@ const SearchBar: FC = () => {
           <div className="w-full border-b-[2px] border-solid borde-[#292824]" key={review.id}>
             <Link href={`/reviewDetail/${review.id}`}>
               <div className="flex justify-start items-start">
-                <span className="flex text-[#292824] text-[14px] font-normal">{review.tittle}</span>
+                <span className="flex text-[#292824] text-[14px] font-normal">{review.title}</span>
               </div>
             </Link>
           </div>

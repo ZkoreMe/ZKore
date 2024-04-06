@@ -4,7 +4,7 @@ export interface ReviewDetails {
     name: string;
     date: string;
     img: string;
-    tittle: string;
+    title: string;
     rate: number;
     description: string;
     like: number;

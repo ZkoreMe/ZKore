@@ -33,7 +33,10 @@ const Navbar: FC = () => {
 
         <div className="flex gap-[16px] text-[#65676B]">
           <i className="ri-heart-fill text-[#292824]" style={{ fontSize: "24px" }}></i>
-          <i className="ri-user-3-fill text-[#292824]" style={{ fontSize: "24px" }}></i>
+          <Link href={"/profile"}>
+            <i className="ri-user-3-fill text-[#292824]" style={{ fontSize: "24px" }}></i>
+          </Link>
+
           <i
             className="ri-menu-5-line text-[#292824]"
             style={{ fontSize: "24px" }}

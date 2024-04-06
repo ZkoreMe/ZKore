@@ -10,7 +10,7 @@ const Home: NextPage = (props) => {
         <title>ZKore</title>
         <meta
           name="description"
-          content="Solana Scaffold"
+          content="Zkore Marketplace"
         />
       </Head>
       <Search />

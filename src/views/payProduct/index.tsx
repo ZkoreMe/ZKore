@@ -55,7 +55,7 @@ export const PayProductStep: FC<ReviewDetailProps> = ({ payId }) => {
       <div className="flex flex-col gap-[4px]">
         <h1 className="text-[#010100] text-[21px] font-medium">
           {" "}
-          {review.tittle}
+          {review.title}
         </h1>
         <p className="text-[#292824] font-normal text-[12px]">{review.url}</p>
       </div>
