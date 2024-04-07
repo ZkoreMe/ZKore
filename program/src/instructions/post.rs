@@ -1,28 +1,24 @@
 use anchor_lang::prelude::*;
 use solana_program::sysvar::clock::Clock;
 
-pub fn sign_message_(_ctx: Context<SignMessage>) -> Result<()> {
-    msg!("Confirm Referral Link Redirect");
+pub fn post(ctx: Context<Post>) -> Result<()> {
+    msg!("Confirm Review Post");
 
     let current_timestamp = Clock::get()?.unix_timestamp;
 
     // Emit an event to indicate that the message has been signed
-    emit!(MessageSigned {
-        message: "Confirm Referral Link Redirect".to_string(),
+    emit!(ReviewPosted {
+        message: "Confirm Review Post".to_string(),
         timestamp: current_timestamp,
     });
-
     Ok(())
 }
 
 #[derive(Accounts)]
-pub struct SignMessage<'info> {
-    #[account(mut, signer)]
-    pub signer: AccountInfo<'info>,
-}
+pub struct Post {}
 
 #[event]
-pub struct MessageSigned {
+pub struct ReviewPosted {
     pub message: String,
     pub timestamp: i64,
 }
