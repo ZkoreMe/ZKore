@@ -42,7 +42,7 @@ export const PayProductStep: FC<ReviewDetailProps> = ({ payId }) => {
   }
 
   return (
-    <div className="mt-[36px] ml-[25px] mr-[25px] flex flex-col gap-[20px] justify-center items-center">
+    <div className="mt-[36px] ml-[25px] mr-[25px] flex flex-col gap-[20px] justify-center">
       <Link href={`/reviewDetail/${review.id}`}>
         <div className="flex items-center gap-[4px]">
           <i

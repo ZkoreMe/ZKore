@@ -8,16 +8,16 @@ const NetworkSwitcher: FC = () => {
   console.log(networkConfiguration);
 
   return (
-    <label className="flex flex-col items-center gap-2">
+    <label className="flex flex-col items-center font-bold gap-2">
       <a>Network</a>
       <select             
         value={networkConfiguration}
         onChange={(e) => setNetworkConfiguration(e.target.value)} 
-        className="w-[120px] rounded-md bg-[#ab9ff2] h-[40px] text-center"
+        className="w-[120px] rounded-md bg-[#FA5D31] h-[50px] text-center"
       > 
-        <option value="mainnet-beta">main</option>
-        <option value="devnet">dev</option>
-        <option value="testnet">test</option>
+        <option value="mainnet-beta">MAIN</option>
+        <option value="devnet">DEV</option>
+        <option value="testnet">TEST</option>
       </select>
     </label>
   );
