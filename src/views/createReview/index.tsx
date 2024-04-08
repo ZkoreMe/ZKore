@@ -3,7 +3,7 @@ import { FC, useEffect, useCallback } from "react";
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { Keypair, SystemProgram, Transaction, TransactionMessage, TransactionSignature, TransactionInstruction, PublicKey } from '@solana/web3.js';
 import { notify } from "utils/notifications";
-import { programId } from "constants/addresses";
+import { PROGRAM_ID } from "constants/addresses";
 
 export const CreateReview: FC = () => {
   const { connection } = useConnection();
@@ -29,7 +29,7 @@ export const CreateReview: FC = () => {
       // Construct the transaction instruction
       const instruction = new TransactionInstruction({
         keys: [{ pubkey: publicKey, isSigner: true, isWritable: false }],
-        programId: programId,
+        programId: PROGRAM_ID,
         data: Buffer.alloc(0), // No data needed for this instruction
       });
 
