@@ -2,69 +2,25 @@
 # ZkoreMe V0
 
 ZkoreMe is a decentralized referral marketplace built on the Solana blockchain. 
-
-ZkoreMe is revolutionizing the way people discover, review and purchase products online.
-
+ZkoreMe is revolutionizing the way people discover, review and purchase products online. By empowering users to own their opinions and earn influence through valuable contributions, we're creating a more transparent and efficient e-commerce ecosystem.
 Program ID on Devnet: 6mQBJXNB6Ecvzhk1yRYQxTb8HPp2ThXDyD72kaPbgtk5
 
-Responsive                     |  Desktop
-:-------------------------:|:-------------------------:
-![](scaffold-mobile.png)  |  ![](scaffold-desktop.png)
+## Main Features
 
-## Features
+- **Create Reviews for products:** Users can create reviews for products they purchased and have their opinions live on chain.
+ 
+- **Earn Rewards for Referrals:** Every review a user creates is elligible to earn commisionable rewards based on how many other users purchase a product through their corresponding review.
 
+- **Buy Products at a Discount:** Products featured on ZkoreMe's shop are all products negotiated with large brands to source them at a discount from market rate, giving users an easy platform to shop for the best deals.
 
-## Installation
+## Rewards Pool
 
-```bash
-npm install
-# or
-yarn install
-```
+ZkoreMe's protocol will manage it's own rewards pool. Rewards are allocated to the pool through 3 main avenues:
+- **Referral Commissions**
+- **Cost-Per-Click Advertising**
+- **Premium Brand Accounts**
 
-## Build and Run
-
-Next, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Features
-
-Each Scaffold will contain at least the following features:
-
-```
-Wallet Integration with Auto Connec / Refresh
-
-State Management
-
-Components: One or more components demonstrating state management
-
-Web3 Js: Examples of one or more uses of web3 js including a transaction with a connection provider
-
-Sample navigation and page changing to demonstate state
-
-Clean Simple Styling 
-
-Notifications (optional): Example of using a notification system
-
-```
-
-A Solana Components Repo will be released in the near future to house a common components library.
-
-
-### Structure
+## Structure
 
 The scaffold project structure may vary based on the front end framework being utilized. The below is an example structure for the Next js Scaffold.
  
