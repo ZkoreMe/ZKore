@@ -61,11 +61,6 @@ export const UserProfile: FC<UserProfileProps> = ({ userId }) => {
           <h1>Likes</h1>
         </div>
       </div>
-      <div className="flex flex-col items-center pb-[24px] border-b-[2px] border-solid border-[#010100] ml-[25px] mr-[25px]">
-        <button className="text-[14px] bg-[#FED302] font-medium text-[#010100] w-[102px] h-[48px] rounded-[8px] border-[2px] border-solid border-[#010100] shadow-custom">
-          FOLLOW
-        </button>
-      </div>
       <div className="flex justify-evenly gap-[19px] pt-[24px] text-[16px] text-[#292824] font-medium">
         <span className="text-[#FA5D31] font-bold border-b-[3px] border-solid border-[#FA5D31] pb-[7px]">
           Reviews

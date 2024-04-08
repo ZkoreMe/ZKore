@@ -1,7 +1,52 @@
-import { FC } from "react";
-import Image from "next/image";
+import { FC, useEffect, useCallback } from "react";
+
+import { useConnection, useWallet } from '@solana/wallet-adapter-react';
+import { Keypair, SystemProgram, Transaction, TransactionMessage, TransactionSignature, TransactionInstruction, PublicKey } from '@solana/web3.js';
+import { notify } from "utils/notifications";
+import { programId } from "lib/addresses";
 
 export const CreateReview: FC = () => {
+  const { connection } = useConnection();
+  const { publicKey, sendTransaction } = useWallet();
+
+  useEffect(() => {
+    if (publicKey) {
+      console.log(publicKey.toBase58());
+    }
+  }, [publicKey, connection]);
+
+  const handleClick = useCallback(async () => {
+    if (!publicKey) {
+      notify({ type: 'error', message: `Wallet not connected!` });
+      console.log('error', `Send Transaction: Wallet not connected!`);
+      return;
+    }
+
+    let signature: TransactionSignature = '';
+    try {
+      // Replace the account key with your actual account key
+
+      // Construct the transaction instruction
+      const instruction = new TransactionInstruction({
+        keys: [{ pubkey: publicKey, isSigner: true, isWritable: false }],
+        programId: programId,
+        data: Buffer.alloc(0), // No data needed for this instruction
+      });
+
+      // Create a transaction object
+      const transaction = new Transaction().add(instruction);
+
+      // Sign and send the transaction
+      const signature = await window.solana.signAndSendTransaction(transaction);
+
+      // Log the transaction signature
+      console.log('Transaction signature:', signature);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }, [publicKey, notify, connection, sendTransaction]);
+
+
   return (
     <div className="w-full relative bg-light-main-background overflow-hidden flex flex-col items-start justify-start pt-3 pb-[38px] pr-[7px] pl-2 box-border gap-[27px] tracking-[normal] text-center text-[17px] text-light-main-text font-sf-pro">
       <section className="self-stretch flex flex-row items-start justify-start py-0 pr-[18px] pl-[17px] box-border max-w-full text-left text-2xl text-light-icon-button font-p-med-16">
@@ -73,7 +118,7 @@ export const CreateReview: FC = () => {
             </div>
           </div>
           <div className="self-stretch flex flex-col items-center justify-start gap-[24px]">
-            <button className="cursor-pointer py-3 px-5 bg-main-yellow self-stretch h-12 rounded-lg shadow-[2px_2px_1px_#000] box-border flex flex-row items-center justify-center gap-[12px] whitespace-nowrap border-[2px] border-solid border-light-main-text">
+            <button onClick={handleClick} className="cursor-pointer py-3 px-5 bg-main-yellow self-stretch h-12 rounded-lg shadow-[2px_2px_1px_#000] box-border flex flex-row items-center justify-center gap-[12px] whitespace-nowrap border-[2px] border-solid border-light-main-text">
               <i
                 className="ri-award-line text-[#FA5D31]"
                 style={{ fontSize: "18px" }}
