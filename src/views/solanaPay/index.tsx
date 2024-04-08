@@ -11,7 +11,7 @@ import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 import { clusterApiUrl, Connection, Keypair, PublicKey } from "@solana/web3.js";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useRef } from "react";
-import { shopAddress, usdcAddress } from "../../lib/addresses";
+import { shopAddress, usdcAddress } from "../../constants/addresses";
 import { useState } from "react";
 import BigNumber from "bignumber.js";
 import reviewData from "data/reviewData";
