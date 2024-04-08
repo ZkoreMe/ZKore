@@ -1,15 +1,17 @@
 
-# Solana dApp Zkore
+# ZkoreMe V0
+
+ZkoreMe is a decentralized referral marketplace built on the Solana blockchain. 
+
+ZkoreMe is revolutionizing the way people discover, review and purchase products online.
 
 Program ID on Devnet: 6mQBJXNB6Ecvzhk1yRYQxTb8HPp2ThXDyD72kaPbgtk5
-
-The Premier Review Marketplace dApp on Solana 
 
 Responsive                     |  Desktop
 :-------------------------:|:-------------------------:
 ![](scaffold-mobile.png)  |  ![](scaffold-desktop.png)
 
-## Getting Started
+## Features
 
 
 ## Installation
