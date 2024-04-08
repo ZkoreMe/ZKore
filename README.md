@@ -1,8 +1,8 @@
 
 # ZkoreMe V0
 
-ZkoreMe is a decentralized referral marketplace built on the Solana blockchain. 
-ZkoreMe is revolutionizing the way people discover, review and purchase products online. By empowering users to own their opinions and earn influence through valuable contributions, we're creating a more transparent and efficient e-commerce ecosystem.
+ZkoreMe is a decentralized referral marketplace built on the Solana blockchainthat is revolutionizing the way people discover, review and purchase products online. By empowering users to own their opinions and earn influence through valuable contributions, we're creating a more transparent and efficient e-commerce ecosystem.
+
 Program ID on Devnet: 6mQBJXNB6Ecvzhk1yRYQxTb8HPp2ThXDyD72kaPbgtk5
 
 ## Main Features
@@ -22,51 +22,32 @@ ZkoreMe's protocol will manage it's own rewards pool. Rewards are allocated to t
   
 ![ZkoreMe Rewards](https://github.com/ZkoreMe/ZKore/assets/94726453/c147a0d1-2429-4460-ac82-b72519ba7abe)
 
-## Structure
+## Protocol Structure
 
+The ZkoreMe protocol leverages Solana  programs to transform reviews into on chain assets that can be promoted to consumers in a trustworthy manner. Each review is stored as a program derived account, with its own unique data recorded on the Solana blockchain.
 
-## Contributing
+This allows the protocol to track the authenticity and influence of each review via an indexer, to properly distribute rewards to users, brands, and other ecosystem participants. 
 
-Anyone is welcome to create an issue to build, discuss or request a new feature or update to the existing code base. Please keep in mind the following when submitting an issue. We consider merging high value features that may be utilized by the majority of scaffold users. If this is not a common feature or fix, consider adding it to the component library or cookbook. Please refer to the project's architecture and style when contributing. 
+![ZkoreMe Architecture](https://github.com/ZkoreMe/ZKore/assets/94726453/28095165-e023-4963-be3a-38903206417b)
 
-If submitting a feature, please reference the project structure shown above and try to follow the overall architecture and style presented in the existing scaffold.
+## Product Roadmap
 
-### Committing
+Our initial focus in 2024 will be on establishing the core platform, growing our user base, and integrating key features.
+Top priorities include enhancing our curation capabilities, refining the AI-powered search engine, and optimizing the personalization models. We'll also be doubling down on the development of our incentive systems to drive user engagement and valuable contributions.
 
-To choose a task or make your own, do the following:
+Looking ahead, we plan to expand our ecosystem through strategic partnerships and integrations, bringing Zkore's decentralized referral marketplace to a wider audience.
 
-1. [Add an issue](https://github.com/solana-dev-adv/solana-dapp-next/issues/new) for the task and assign it to yourself or comment on the issue
-2. Make a draft PR referencing the issue.
+![ZkoreMe Roadmap](https://github.com/ZkoreMe/ZKore/assets/94726453/22885ccc-26d2-4496-87ac-399698b0cd61)
 
-The general flow for making a contribution:
+### Development
 
-1. Fork the repo on GitHub
-2. Clone the project to your own machine
-3. Commit changes to your own branch
-4. Push your work back up to your fork
-5. Submit a Pull request so that we can review your changes
-
-**NOTE**: Be sure to merge the latest from "upstream" before making a 
-pull request!
-
-You can find tasks on the [project board](https://github.com/solana-dev-adv/solana-dapp-next/projects/1) 
-or create an issue and assign it to yourself.
-
-
-## Learn More Next Js
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+The repo uses the Rust and the Anchor framework for it's Solana Programs.
+For the client application, Next.js and React are used for a seamless user experience.
 
 ## Deploy on Vercel
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-# mine
-# ZKore
-# ZKore
+
+
