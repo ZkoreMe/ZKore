@@ -3,7 +3,7 @@ import { FC, useEffect, useCallback } from "react";
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { Keypair, SystemProgram, Transaction, TransactionMessage, TransactionSignature, TransactionInstruction, PublicKey } from '@solana/web3.js';
 import { notify } from "utils/notifications";
-import { programId } from "lib/addresses";
+import { programId } from "constants/addresses";
 
 export const CreateReview: FC = () => {
   const { connection } = useConnection();
