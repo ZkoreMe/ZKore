@@ -3,6 +3,7 @@
 
 ZkoreMe is a decentralized referral marketplace built on the Solana blockchainthat is revolutionizing the way people discover, review and purchase products online. By empowering users to own their opinions and earn influence through valuable contributions, we're creating a more transparent and efficient e-commerce ecosystem.
 
+![ZkoreMe Headliner](https://github.com/ZkoreMe/ZKore/assets/94726453/7ee48373-1e60-47e8-bec8-60c39dab1746)
 Program ID on Devnet: 6mQBJXNB6Ecvzhk1yRYQxTb8HPp2ThXDyD72kaPbgtk5
 
 ## Main Features
