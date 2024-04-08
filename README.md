@@ -19,26 +19,11 @@ ZkoreMe's protocol will manage it's own rewards pool. Rewards are allocated to t
 - **Referral Commissions**
 - **Cost-Per-Click Advertising**
 - **Premium Brand Accounts**
+  
+![ZkoreMe Rewards](https://github.com/ZkoreMe/ZKore/assets/94726453/c147a0d1-2429-4460-ac82-b72519ba7abe)
 
 ## Structure
 
-The scaffold project structure may vary based on the front end framework being utilized. The below is an example structure for the Next js Scaffold.
- 
-```
-├── public : publically hosted files
-├── src : primary code folders and files 
-│   ├── components : should house anything considered a resuable UI component
-│   ├── contexts` : any context considered reusable and useuful to many compoennts that can be passed down through a component tree
-│   ├── hooks` : any functions that let you 'hook' into react state or lifecycle features from function components
-│   ├── models` : any data structure that may be reused throughout the project
-│   ├── pages` : the pages that host meta data and the intended `View` for the page
-│   ├── stores` : stores used in state management
-│   ├── styles` : contain any global and reusable styles
-│   ├── utils` : any other functionality considered reusable code that can be referenced
-│   ├── views` : contains the actual views of the project that include the main content and components within
-style, package, configuration, and other project files
-
-```
 
 ## Contributing
 
