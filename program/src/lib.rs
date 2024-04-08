@@ -6,7 +6,7 @@ pub mod utils;
 
 use crate::instructions::*;
 
-declare_id!("");
+declare_id!("6mQBJXNB6Ecvzhk1yRYQxTb8HPp2ThXDyD72kaPbgtk5");
 
 #[program]
 pub mod zkore {
@@ -48,7 +48,7 @@ pub mod zkore {
         buy_product_(ctx)
     }
 
-    pub fn post(ctx: Context<Post>) -> Result<()>  {
+    pub fn post(ctx: Context<Post>) -> Result<()> {
         post_(ctx)
     }
 }
