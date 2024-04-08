@@ -47,4 +47,8 @@ pub mod zkore {
     pub fn buy_product(ctx: Context<BuyProduct>) -> Result<String> {
         buy_product_(ctx)
     }
+
+    pub fn post(ctx: Context<Post>) -> Result<()>  {
+        post_(ctx)
+    }
 }
