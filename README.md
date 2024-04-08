@@ -45,10 +45,3 @@ Looking ahead, we plan to expand our ecosystem through strategic partnerships an
 The repo uses the Rust and the Anchor framework for it's Solana Programs.
 For the client application, Next.js and React are used for a seamless user experience.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-
-
