@@ -45,7 +45,7 @@ Looking ahead, we plan to expand our ecosystem through strategic partnerships an
 The repo uses the Rust and the Anchor framework for it's Solana Programs.
 For the client application, Next.js and React are used for a seamless user experience.
 
-## Setup
+## Program Setup
 
 Install Rust.
 
@@ -54,32 +54,25 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 or visit the [Official Rust Install Page](https://www.rust-lang.org/tools/install) 
 
-Install Hardhat.
+## Client Setup
+
+Install Depdencies.
 
 ```bash
-yarn add global hardhat
+npm i
 ```
-
-Install Ganache for having a local dev Ethereum network.
-
-```bash
-yarn add global ganache ganache-cli
-```
-
-Create a local `.env` file by copying the sample `.env.sample` file available in the root folder (`cp .env.sample .env`). After your `.env` file is created, edit it with appropriate values for the variables.
-
-Install Project dependencies
-
 ```bash
 yarn install
 ```
-
+```bash
+npm run dev
+```
 ## Common Development Commands
 
-Compile contracts
+Compile program
 
 ```bash
-yarn compile
+anchor build
 ```
 
 # Tests
