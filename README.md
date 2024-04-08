@@ -40,8 +40,109 @@ Looking ahead, we plan to expand our ecosystem through strategic partnerships an
 
 ![ZkoreMe Roadmap](https://github.com/ZkoreMe/ZKore/assets/94726453/22885ccc-26d2-4496-87ac-399698b0cd61)
 
-### Development
+# Development
 
 The repo uses the Rust and the Anchor framework for it's Solana Programs.
 For the client application, Next.js and React are used for a seamless user experience.
+
+## Setup
+
+Install Rust.
+
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
+or visit the [Official Rust Install Page](https://www.rust-lang.org/tools/install) 
+
+Install Hardhat.
+
+```bash
+yarn add global hardhat
+```
+
+Install Ganache for having a local dev Ethereum network.
+
+```bash
+yarn add global ganache ganache-cli
+```
+
+Create a local `.env` file by copying the sample `.env.sample` file available in the root folder (`cp .env.sample .env`). After your `.env` file is created, edit it with appropriate values for the variables.
+
+Install Project dependencies
+
+```bash
+yarn install
+```
+
+## Common Development Commands
+
+Compile contracts
+
+```bash
+yarn compile
+```
+
+# Tests
+
+## Unit Tests
+
+**Requirements** :
+
+- Make sure the `FORKING` var in .env is set `false` before running the unit test suite.
+- Make sure the `MNEMONIC` var in .env is set as "here is where your twelve words mnemonic should be put my friend" (this is the real mnemonic that should be used - not a placeholder) before running the unit test suite.
+
+To run the unit tests use:
+`yarn test`
+
+To run test coverage use:
+`yarn coverage`
+
+NOTE - If you run any test command after `yarn coverage` you will see an error similar to:
+
+```
+An unexpected error occurred:
+
+test/fork/pool.aave.emergency.withdraw.test.ts:5:34 - error TS2307: Cannot find module '../../artifacts/contracts/aave/ILendingPoolAddressesProvider.sol/ILendingPoolAddressesProvider.json' or its corresponding type declarations.
+
+5 import * as lendingProvider from "../../artifacts/contracts/aave/ILendingPoolAddressesProvider.sol/ILendingPoolAddressesProvider.json";
+                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+test/fork/pool.aave.emergency.withdraw.test.ts:6:38 - error TS2307: Cannot find module '../../artifacts/contracts/aave/IncentiveController.sol/IncentiveController.json' or its corresponding type declarations.
+
+6 import * as incentiveController from "../../artifacts/contracts/aave/IncentiveController.sol/IncentiveController.json";
+                                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+test/fork/pool.aave.emergency.withdraw.test.ts:7:25 - error TS2307: Cannot find module '../../artifacts/contracts/mock/MintableERC20.sol/MintableERC20.json' or its corresponding type declarations.
+
+7 import * as wmatic from "../../artifacts/contracts/mock/MintableERC20.sol/MintableERC20.json";
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+test/fork/pool.aave.emergency.withdraw.test.ts:8:31 - error TS2307: Cannot find module '../../artifacts/contracts/mock/LendingPoolAddressesProviderMock.sol/LendingPoolAddressesProviderMock.json' or its corresponding type declarations.
+
+8 import * as dataProvider from "../../artifacts/contracts/mock/LendingPoolAddressesProviderMock.sol/LendingPoolAddressesProviderMock.json";
+```
+
+**just ignore this error and run the command again**
+
+## Integration Tests Using Forked Networks
+
+### Setup
+
+Before you start, make sure you ran:
+
+- `yarn install`
+- `yarn compile`
+- `npx truffle compile --all`
+
+Tests were ran using Node 17.8.x and 17.9.x
+
+To run the integrated test scenarios forking from Mainnet (Polygon or Celo) you'll have to:
+
+- Configure `WHALE_ADDRESS_FORKED_NETWORK` in your `.env` file. The file [.env.example](./.env.example) have sample whale addresses that can be used: `0x075e72a5edf65f0a5f44699c7654c1a76941ddc8` for polygon and `0x5776b4893faca32A9224F18950406c9599f3B013` for celo.
+
+- Update the strategy type in the deployment config and the inboundCurrencySymbol value according to the type of strategy you want to deploy.
+
+- Review the deployment configs ([deploy-config.js file](./deploy-config.js)) prior to executing the test on the forked network.
+
+- You'll also need a rpc provider. The best option for polygon is infura and for celo you can use their public rpc `https://forno.celo.org/`
+
+### Steps
+
 
