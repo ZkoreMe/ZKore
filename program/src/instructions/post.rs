@@ -1,7 +1,7 @@
 use anchor_lang::prelude::*;
 use solana_program::sysvar::clock::Clock;
 
-pub fn sign_message_(_ctx: Context<SignMessage>) -> Result<()> {
+pub fn post_(_ctx: Context<Post>) -> Result<()> {
     msg!("Confirm Referral Link Redirect");
 
     let current_timestamp = Clock::get()?.unix_timestamp;
@@ -16,7 +16,7 @@ pub fn sign_message_(_ctx: Context<SignMessage>) -> Result<()> {
 }
 
 #[derive(Accounts)]
-pub struct SignMessage<'info> {
+pub struct Post<'info> {
     #[account(mut, signer)]
     pub signer: AccountInfo<'info>,
 }
