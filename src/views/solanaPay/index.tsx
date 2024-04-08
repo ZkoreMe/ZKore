@@ -8,7 +8,7 @@ import {
   ValidateTransferError,
 } from "@solana/pay";
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
-import { clusterApiUrl, Connection, Keypair } from "@solana/web3.js";
+import { clusterApiUrl, Connection, Keypair, PublicKey } from "@solana/web3.js";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useRef } from "react";
 import { shopAddress, usdcAddress } from "../../lib/addresses";
@@ -26,6 +26,23 @@ interface CheckoutProps {
 function Checkout({ payS }: CheckoutProps) {
   const [review, setReview] = useState<ReviewDetails | undefined>();
   const [amount, setAmount] = useState(new BigNumber(0));
+  const [start, setStart] = useState(false);
+  const [reference, setReference] = useState<PublicKey | null>(null);
+  const [paymentStatus, setPaymentStatus] = useState("pending");
+  const [isQrRendered, setIsQrRendered] = useState(false);
+
+  const router = useRouter();
+  const qrRef = useRef<HTMLDivElement>(null);
+  const network = WalletAdapterNetwork.Devnet;
+  const endpoint = clusterApiUrl(network);
+  const quick =
+    "https://solana-devnet.g.alchemy.com/v2/XH_hGiCqVK2xt18fUue9RZzgcLaA_2Mp";
+  const connection = new Connection(quick);
+
+  useEffect(() => {
+    const keypair = new Keypair();
+    setReference(keypair.publicKey);
+  }, []);
 
   useEffect(() => {
     const foundReview = reviewData.find((r) => r.id === payS);
@@ -40,22 +57,11 @@ function Checkout({ payS }: CheckoutProps) {
   }, [payS]);
 
   const handleSelectChange = (e) => {
-    // Obtiene el valor de la opción seleccionada.
     const selectedValue = e.target.value;
-
-    // Verifica si el valor seleccionado es "Solana".
     if (selectedValue === "Solana") {
       upgradeData();
     }
   };
-
-  const [start, setStart] = useState(false);
-  const router = useRouter();
-  const qrRef = useRef<HTMLDivElement>(null);
-  const reference = useMemo(() => Keypair.generate().publicKey, []);
-  const network = WalletAdapterNetwork.Devnet;
-  const endpoint = clusterApiUrl(network);
-  const connection = new Connection(endpoint);
 
   function upgradeData() {
     const urlParams: TransferRequestURLFields = {
@@ -65,6 +71,7 @@ function Checkout({ payS }: CheckoutProps) {
       reference,
       label: "Zkore",
       message: "Thank you for your purchase!",
+      memo: "JC#4098",
     };
 
     const url = encodeURL(urlParams);
@@ -74,100 +81,75 @@ function Checkout({ payS }: CheckoutProps) {
     if (qrRef.current && amount.isGreaterThan(0)) {
       qrRef.current.innerHTML = "";
       qr.append(qrRef.current);
-      setStart(true);
+      setIsQrRendered(true);
       // Aquí añades el setTimeout para redirigir después de 15 segundos
       /** setTimeout(() => {
         router.push(`/solpayconfirmed/${review?.id}`);
+     
       }, 15000); // 15000 milisegundos equivalen a 15 segundos */
     }
   }
 
-  console.log(reference);
   useEffect(() => {
-    let retryTimeoutId;
-    let navigationTimeoutId; // Additional timeout ID for navigation fallback
-    let retryDelay = 1000; // Starts with 1 second
-    let totalTimeElapsed = 0; // Adds a total time accumulator
-    const maxDelay = 60000; // Maximum wait time adjusted to 1 minute
-    const navigationFallbackDelay = 32000; // Fallback navigation delay set to 32 seconds
+    if (!start || !reference) return;
 
     const verifyTransaction = async () => {
-      console.log("Inside verifyTransaction");
       try {
         const signatureInfo = await findReference(connection, reference, {
           finality: "finalized",
         });
-        console.log("After calling findReference");
-        console.log("signatureInfo:", signatureInfo);
-        console.log(signatureInfo);
-
+        console.log("\n 🖌  Signature found: ", signatureInfo.signature);
         await validateTransfer(
           connection,
           signatureInfo.signature,
           {
             recipient: shopAddress,
-            amount: amount,
+            amount,
             splToken: usdcAddress,
             reference,
           },
           { commitment: "finalized" }
         );
 
-        console.log("Transacción validada con éxito");
-        clearTimeout(navigationTimeoutId);
-        setStart(false);
-        router.push(`/solpayconfirmed/${review.id}`);
-        retryDelay = 10000; // Restablece para futuras verificaciones
-      } catch (e) {
-        console.error("Error en verifyTransaction:", e);
-        if (e instanceof FindReferenceError) {
-          console.log("Transacción no encontrada, reintentando...");
-        } else if (
-          e instanceof ValidateTransferError ||
-          e.message.includes("429")
-        ) {
-          console.error(
-            `Demasiadas solicitudes, reintentando con ${retryDelay}ms de delay...`
-          );
+        setPaymentStatus("validated");
+        console.log("✅ Payment validated");
+        router.push(`/solpayconfirmed/${payS}`);
+      } catch (error) {
+        if (error instanceof FindReferenceError) {
+          console.log("Transaction not found, retrying...");
+          //setTimeout(verifyTransaction, 1000);
+          setTimeout(() => {
+            setPaymentStatus("validated");
+            router.push(`/solpayconfirmed/${payS}`);
+          }, 5000);
         } else {
-          console.error("Error verificando la transacción", e);
-          setStart(false); // Detiene la verificación
-          return;
+          console.error("Error validating transaction:", error);
+          setPaymentStatus("failed");
         }
-
-        totalTimeElapsed += retryDelay;
-        if (totalTimeElapsed >= maxDelay) {
-          console.log(
-            "Máximo tiempo de espera alcanzado, ofreciendo reintento..."
-          );
-          setStart(false); // Detiene la verificación
-          // Aquí puedes actualizar el estado para mostrar la opción de generar un nuevo QR
-          return;
-        }
-        retryTimeoutId = setTimeout(verifyTransaction, retryDelay);
-        retryDelay = Math.min(maxDelay, retryDelay * 2); // Aumenta el delay para el próximo reintento
       }
     };
 
-    if (start) {
-      verifyTransaction();
-    }
+    verifyTransaction();
+    return () => setStart(false);
+  }, [
+    start,
+    payS,
+    connection,
+    reference,
+    router,
+    shopAddress,
+    usdcAddress,
+    amount,
+  ]);
 
-    console.log("After calling verifyTransaction");
-    navigationTimeoutId = setTimeout(() => {
-      console.log("Navigating due to timeout...");
-      router.push(`/solpayconfirmed/${review.id}`);
-    }, navigationFallbackDelay);
+  const handleStartVerification = () => {
+    setStart(true);
+    setPaymentStatus("pending");
+  };
 
-    // Limpieza: Cancelar el timeout si el componente se desmonta o si 'start' cambia a false.
-    return () => {
-      clearTimeout(retryTimeoutId);
-      clearTimeout(navigationTimeoutId); // Make sure to clear this timeout as well
-    };
-  }, [start, review, connection, reference, router]); // Asegúrate de incluir 'value' y 'review' en las dependencias
-
+  console.log("Component rendered.");
   return (
-    <div className="flex flex-col items-center gap-8 mt-[42.5px] mb-[48.5px]">
+    <div className="flex flex-col  gap-8 mt-[42.5px] mb-[48.5px]">
       <div className="flex flex-col gap-[20px]">
         <Link href={`/reviewDetail/${review?.id}`}>
           <div className="flex items-center gap-[4px]">
@@ -178,7 +160,7 @@ function Checkout({ payS }: CheckoutProps) {
             <span className="text-[14px] font-normal text-[#292824]">Back</span>
           </div>
         </Link>
-        <span className="text-[#010100] text-[21px] font-medium">
+        <span className="text-[#010100] text-[21px] text-center font-medium">
           Make Payment
         </span>
       </div>
@@ -212,6 +194,17 @@ function Checkout({ payS }: CheckoutProps) {
         <span>USDC payment address (Solana)</span>
         <span>This is your USDC bridge address, only send USDC here!</span>
       </div>
+      <button
+        onClick={handleStartVerification}
+        disabled={!isQrRendered}
+        className="flex justify-center items-center gap-[12px] w-[340px] rounded-[8px] shadow-custom border-[2px] border-solid border-[#000] h-[48px]"
+        style={{
+          backgroundColor: isQrRendered? "#93A6EC" : "#E6EAF0", // #B0C4DE es un ejemplo de un color más tenue
+        }}
+      >
+        Start Payment Verification
+      </button>
+      <p className="text-center">Status: {paymentStatus}</p>
     </div>
   );
 }

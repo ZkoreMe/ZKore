@@ -4,6 +4,7 @@ import userData from "data/userData";
 import Image from "next/image";
 import { User } from "types/userTypes";
 import CardUserReview from "components/CardUserReview";
+import Link from "next/link";
 
 interface ExploreUserProps {
   userId: string | string[] | undefined;
@@ -31,6 +32,15 @@ export const ExploreUser: FC<ExploreUserProps> = ({ userId }) => {
   return (
     <div className="">
       <div className="flex flex-col items-center gap-[12px] mt-[36px]">
+        <Link href={"/search"}>
+          <div className="flex items-center gap-[4px] mb-[20px]">
+            <i
+              className="ri-arrow-left-s-line text-[#292824] w-[24px] h-[24px] flex items-center"
+              style={{ fontSize: "24px" }}
+            ></i>
+            <span className="text-[14px] font-normal text-[#292824]">Back</span>
+          </div>
+        </Link>
         <Image
           src={user.img}
           alt="profile"
