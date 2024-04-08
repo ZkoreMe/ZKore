@@ -74,68 +74,21 @@ Compile program
 ```bash
 anchor build
 ```
+Deploy program
+
+```bash
+anchor deploy
+```
 
 # Tests
 
-## Unit Tests
+## Program Tests
 
-**Requirements** :
+Run program tests
 
-- Make sure the `FORKING` var in .env is set `false` before running the unit test suite.
-- Make sure the `MNEMONIC` var in .env is set as "here is where your twelve words mnemonic should be put my friend" (this is the real mnemonic that should be used - not a placeholder) before running the unit test suite.
-
-To run the unit tests use:
-`yarn test`
-
-To run test coverage use:
-`yarn coverage`
-
-NOTE - If you run any test command after `yarn coverage` you will see an error similar to:
-
-```
-An unexpected error occurred:
-
-test/fork/pool.aave.emergency.withdraw.test.ts:5:34 - error TS2307: Cannot find module '../../artifacts/contracts/aave/ILendingPoolAddressesProvider.sol/ILendingPoolAddressesProvider.json' or its corresponding type declarations.
-
-5 import * as lendingProvider from "../../artifacts/contracts/aave/ILendingPoolAddressesProvider.sol/ILendingPoolAddressesProvider.json";
-                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-test/fork/pool.aave.emergency.withdraw.test.ts:6:38 - error TS2307: Cannot find module '../../artifacts/contracts/aave/IncentiveController.sol/IncentiveController.json' or its corresponding type declarations.
-
-6 import * as incentiveController from "../../artifacts/contracts/aave/IncentiveController.sol/IncentiveController.json";
-                                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-test/fork/pool.aave.emergency.withdraw.test.ts:7:25 - error TS2307: Cannot find module '../../artifacts/contracts/mock/MintableERC20.sol/MintableERC20.json' or its corresponding type declarations.
-
-7 import * as wmatic from "../../artifacts/contracts/mock/MintableERC20.sol/MintableERC20.json";
-                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-test/fork/pool.aave.emergency.withdraw.test.ts:8:31 - error TS2307: Cannot find module '../../artifacts/contracts/mock/LendingPoolAddressesProviderMock.sol/LendingPoolAddressesProviderMock.json' or its corresponding type declarations.
-
-8 import * as dataProvider from "../../artifacts/contracts/mock/LendingPoolAddressesProviderMock.sol/LendingPoolAddressesProviderMock.json";
+```bash
+anchor run test
 ```
 
-**just ignore this error and run the command again**
-
-## Integration Tests Using Forked Networks
-
-### Setup
-
-Before you start, make sure you ran:
-
-- `yarn install`
-- `yarn compile`
-- `npx truffle compile --all`
-
-Tests were ran using Node 17.8.x and 17.9.x
-
-To run the integrated test scenarios forking from Mainnet (Polygon or Celo) you'll have to:
-
-- Configure `WHALE_ADDRESS_FORKED_NETWORK` in your `.env` file. The file [.env.example](./.env.example) have sample whale addresses that can be used: `0x075e72a5edf65f0a5f44699c7654c1a76941ddc8` for polygon and `0x5776b4893faca32A9224F18950406c9599f3B013` for celo.
-
-- Update the strategy type in the deployment config and the inboundCurrencySymbol value according to the type of strategy you want to deploy.
-
-- Review the deployment configs ([deploy-config.js file](./deploy-config.js)) prior to executing the test on the forked network.
-
-- You'll also need a rpc provider. The best option for polygon is infura and for celo you can use their public rpc `https://forno.celo.org/`
-
-### Steps
 
 
