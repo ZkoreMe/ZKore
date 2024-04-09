@@ -1,0 +1,325 @@
+{
+    "version": "0.1.0",
+    "name": "zkore",
+    "constants": [
+        {
+            "name": "ANCHOR_BUFFER",
+            "type": {
+                "defined": "usize"
+            },
+            "value": "8"
+        },
+        {
+            "name": "USER_ACCOUNT",
+            "type": "bytes",
+            "value": "[85, 83, 69, 82, 95, 65, 67, 67, 79, 85, 78, 84]"
+        },
+        {
+            "name": "PRODUCT_ACCOUNT",
+            "type": "bytes",
+            "value": "[80, 82, 79, 68, 85, 67, 84, 95, 65, 67, 67, 79, 85, 78, 84]"
+        },
+        {
+            "name": "REVIEW_ACCOUNT",
+            "type": "bytes",
+            "value": "[82, 69, 86, 73, 69, 87, 95, 65, 67, 67, 79, 85, 78, 84]"
+        },
+        {
+            "name": "MAX_NAME",
+            "type": {
+                "defined": "usize"
+            },
+            "value": "32"
+        },
+        {
+            "name": "MAX_DESCRIPTION",
+            "type": {
+                "defined": "usize"
+            },
+            "value": "200"
+        },
+        {
+            "name": "MAX_VECTOR",
+            "type": {
+                "defined": "usize"
+            },
+            "value": "9971"
+        }
+    ],
+    "instructions": [
+        {
+            "name": "initUserAccount",
+            "accounts": [
+                {
+                    "name": "authority",
+                    "isMut": true,
+                    "isSigner": true
+                },
+                {
+                    "name": "userAccount",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "systemProgram",
+                    "isMut": false,
+                    "isSigner": false
+                }
+            ],
+            "args": []
+        },
+        {
+            "name": "createProduct",
+            "accounts": [
+                {
+                    "name": "authority",
+                    "isMut": true,
+                    "isSigner": true
+                },
+                {
+                    "name": "userAccount",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "productAccount",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "pda",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "systemProgram",
+                    "isMut": false,
+                    "isSigner": false
+                }
+            ],
+            "args": [
+                {
+                    "name": "name",
+                    "type": "string"
+                },
+                {
+                    "name": "description",
+                    "type": "string"
+                },
+                {
+                    "name": "supply",
+                    "type": "u32"
+                },
+                {
+                    "name": "price",
+                    "type": "u64"
+                },
+                {
+                    "name": "imageUrl",
+                    "type": "string"
+                },
+                {
+                    "name": "productUrl",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "createReview",
+            "accounts": [
+                {
+                    "name": "authority",
+                    "isMut": true,
+                    "isSigner": true
+                },
+                {
+                    "name": "productAccount",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "reviewAccount",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "pda",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "systemProgram",
+                    "isMut": false,
+                    "isSigner": false
+                }
+            ],
+            "args": [
+                {
+                    "name": "name",
+                    "type": "string"
+                },
+                {
+                    "name": "description",
+                    "type": "string"
+                },
+                {
+                    "name": "productUrl",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "buyProduct",
+            "accounts": [
+                {
+                    "name": "authority",
+                    "isMut": true,
+                    "isSigner": true
+                },
+                {
+                    "name": "reviewAccount",
+                    "isMut": true,
+                    "isSigner": false
+                }
+            ],
+            "args": [],
+            "returns": "string"
+        },
+        {
+            "name": "post",
+            "accounts": [],
+            "args": []
+        }
+    ],
+    "accounts": [
+        {
+            "name": "AccountData",
+            "type": {
+                "kind": "struct",
+                "fields": [
+                    {
+                        "name": "bumpOriginal",
+                        "type": "u8"
+                    },
+                    {
+                        "name": "transactions",
+                        "type": "u64"
+                    },
+                    {
+                        "name": "averageExchangeTime",
+                        "type": "i64"
+                    },
+                    {
+                        "name": "productList",
+                        "type": {
+                            "vec": "publicKey"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Product",
+            "type": {
+                "kind": "struct",
+                "fields": [
+                    {
+                        "name": "bumpOriginal",
+                        "type": "u8"
+                    },
+                    {
+                        "name": "authority",
+                        "type": "publicKey"
+                    },
+                    {
+                        "name": "active",
+                        "type": "bool"
+                    },
+                    {
+                        "name": "name",
+                        "type": "string"
+                    },
+                    {
+                        "name": "description",
+                        "type": "string"
+                    },
+                    {
+                        "name": "score",
+                        "type": "f32"
+                    },
+                    {
+                        "name": "supply",
+                        "type": "u32"
+                    },
+                    {
+                        "name": "price",
+                        "type": "u64"
+                    },
+                    {
+                        "name": "imageUrl",
+                        "type": "string"
+                    },
+                    {
+                        "name": "productUrl",
+                        "type": "string"
+                    },
+                    {
+                        "name": "reviews",
+                        "type": {
+                            "vec": "publicKey"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Review",
+            "type": {
+                "kind": "struct",
+                "fields": [
+                    {
+                        "name": "bumpOriginal",
+                        "type": "u8"
+                    },
+                    {
+                        "name": "authority",
+                        "type": "publicKey"
+                    },
+                    {
+                        "name": "name",
+                        "type": "string"
+                    },
+                    {
+                        "name": "description",
+                        "type": "string"
+                    },
+                    {
+                        "name": "rating",
+                        "type": "f32"
+                    },
+                    {
+                        "name": "productUrl",
+                        "type": "string"
+                    }
+                ]
+            }
+        }
+    ],
+    "events": [
+        {
+            "name": "ReviewPosted",
+            "fields": [
+                {
+                    "name": "message",
+                    "type": "string",
+                    "index": false
+                },
+                {
+                    "name": "timestamp",
+                    "type": "i64",
+                    "index": false
+                }
+            ]
+        }
+    ]
+}
