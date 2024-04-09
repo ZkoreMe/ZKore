@@ -42,7 +42,7 @@ Looking ahead, we plan to expand our ecosystem through strategic partnerships an
 
 # Development
 
-The repo uses the Rust and the Anchor framework for it's Solana Programs.
+The repo uses the Rust and the Anchor framework for it's Solana Programs, Solana Mobile Wallet Adapter for connecting the wallet and using Solana Pay for receiving on-chain payments.
 For the client application, Next.js and React are used for a seamless user experience.
 
 ## Program Setup
