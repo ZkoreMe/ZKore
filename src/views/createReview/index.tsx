@@ -4,6 +4,7 @@ import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { Keypair, SystemProgram, Transaction, TransactionMessage, TransactionSignature, TransactionInstruction, PublicKey } from '@solana/web3.js';
 import { notify } from "utils/notifications";
 import { PROGRAM_ID } from "constants/addresses";
+import ZkoreIDL from "constants/ZkoreMeIDL.json";
 
 export const CreateReview: FC = () => {
   const { connection } = useConnection();
@@ -15,6 +16,7 @@ export const CreateReview: FC = () => {
     }
   }, [publicKey, connection]);
 
+
   const handleClick = useCallback(async () => {
     if (!publicKey) {
       notify({ type: 'error', message: `Wallet not connected!` });
@@ -22,19 +24,23 @@ export const CreateReview: FC = () => {
       return;
     }
 
-    let signature: TransactionSignature = '';
     try {
-      // Replace the account key with your actual account key
+      // Fetch the recent blockhash from the Solana network
+      const recentBlockhash = await connection.getLatestBlockhash();
 
-      // Construct the transaction instruction
+      // Construct the transaction instruction to call the post instruction
       const instruction = new TransactionInstruction({
-        keys: [{ pubkey: publicKey, isSigner: true, isWritable: false }],
+        keys: [{ pubkey: publicKey, isSigner: true, isWritable: false }], // Replace publicKey with authority's public key
         programId: PROGRAM_ID,
         data: Buffer.alloc(0), // No data needed for this instruction
       });
 
-      // Create a transaction object
+      // Create a transaction object and add the instruction to it
       const transaction = new Transaction().add(instruction);
+
+      // Set the recent blockhash in the transaction
+      transaction.recentBlockhash = recentBlockhash.blockhash;
+      transaction.feePayer = publicKey;
 
       // Sign and send the transaction
       const signature = await window.solana.signAndSendTransaction(transaction);
@@ -45,6 +51,7 @@ export const CreateReview: FC = () => {
       console.error('Error:', error);
     }
   }, [publicKey, notify, connection, sendTransaction]);
+
 
 
   return (
