@@ -77,7 +77,7 @@ export const UserProfile: FC<UserProfileProps> = ({ userId }) => {
             className="ri-link-m text-[#010100]"
             style={{ fontSize: "24px" }}
           ></i>
-          WRITE REVIEW
+          WRITE REVIEW 1
         </button>
       </Link>
     </div>
