@@ -23,7 +23,7 @@
     "@tailwindcss/typography": "^0.5.9",
     "@walletconnect/client": "^1.8.0",
     "bignumber.js": "^9.1.2",
-    "daisyui": "^1.24.3",
+    "daisyui": "^4.12.7",
     "date-fns": "^2.29.3",
     "immer": "^9.0.12",
     "next": "^14.1.4",
